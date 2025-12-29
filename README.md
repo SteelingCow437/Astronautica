@@ -1,4 +1,4 @@
-Space-Tech-Mod
+Astronautica
 
 A mod about space and tech, for 1.21.1 and beyond, made for the Minecraft server that
 my friends and I play on.
@@ -8,8 +8,6 @@ or open up an issue, so I can know what's going on. Things will be broken/janky,
 and modder, so bear with me here.
 
 IMPORTANT: On multiplayer worlds, the gamerule "disableElytraMovementCheck" MUST be set to "true"
-
-ALSO IMPORTANT: As of version 21.1.2, "Sky Aesthetics" is a REQUIRED dependency.
 
 FAQ:
 
@@ -36,5 +34,5 @@ If it's not in there, chances are you either have to find it or it's made at a s
 crafting station. Recipes for everything will be on the wiki in the GitHub page.
 
 "How do I download it?" Download the JAR file from the "Releases" tab and put it in your
-mods folder. "Sky Aesthetics" is the only dependency, but I recommend some performance mods, as Mojang doesn't know how to code, and
+mods folder. There are no dependencies, but I recommend some performance mods, as Mojang doesn't know how to code, and
 neither do I.
