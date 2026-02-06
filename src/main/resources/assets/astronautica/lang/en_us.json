@@ -133,5 +133,6 @@
   "item.astronautica.copper_coil": "Copper Coil",
   "item.astronautica.mineral_clump": "Clump Of Minerals",
   "item.astronautica.resource_scanner": "Resource Scanner",
-  "block.astronautica.resource_radar": "Resource Radar"
+  "block.astronautica.resource_radar": "Resource Radar",
+  "block.astronautica.space_air": "Space Air"
 }

@@ -1,10 +1,10 @@
 package com.astronautica.block.custom.dungeon;
 
-import com.mojang.serialization.MapCodec;
 import com.astronautica.block.entity.ModBlockEntities;
 import com.astronautica.block.entity.dungeon.StarGateCoreBlockEntity;
 import com.astronautica.data.ModDataStorage;
 import com.astronautica.item.ModItems;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

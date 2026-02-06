@@ -1,11 +1,11 @@
 package com.astronautica.block.custom.machine;
 
-import com.mojang.serialization.MapCodec;
 import com.astronautica.block.entity.machine.PlanetDirectoryBlockEntity;
 import com.astronautica.data.ModDataStorage;
 import com.astronautica.item.custom.armor.SpaceSuitChestplateItem;
 import com.astronautica.item.custom.armor.Z7ChestplateItem;
 import com.astronautica.item.custom.space.PlanetKeyItem;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

@@ -5,6 +5,7 @@ import com.astronautica.block.custom.dungeon.StarGateCoreBlock;
 import com.astronautica.block.custom.dungeon.StarGatePortalBlock;
 import com.astronautica.block.custom.dungeon.VaultDoorBlock;
 import com.astronautica.block.custom.machine.*;
+import com.astronautica.block.custom.misc.SpaceAirBlock;
 import com.astronautica.block.custom.multiblock.OrbitalFlameCoreBlock;
 import com.astronautica.block.custom.multiblock.OrbitalTNTCoreBlock;
 import com.astronautica.block.custom.multiblock.ResourceRadarBlock;
@@ -152,4 +153,8 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> RESOURCE_RADAR = registerBlock("resource_radar",
             ()-> new ResourceRadarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).strength(3f).requiresCorrectToolForDrops()));
+
+    //Air blocks / miscellaneous
+    public static final DeferredBlock<Block> SPACE_AIR = registerBlock("space_air",
+            () -> new SpaceAirBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AIR).replaceable().noCollission().noLootTable().air()));
 }

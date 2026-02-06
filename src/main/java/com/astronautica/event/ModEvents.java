@@ -8,13 +8,13 @@ import com.astronautica.item.custom.armor.SpaceSuitChestplateItem;
 import com.astronautica.item.custom.armor.Z7ChestplateItem;
 import com.astronautica.util.ModAttributeModifiers;
 import com.astronautica.util.ModLists;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.RelativeMovement;
@@ -27,7 +27,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
 
@@ -41,38 +44,57 @@ public class ModEvents {
         event.register(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
     }
 
-
     @EventBusSubscriber(modid = Astronautica.MOD_ID)
     public static class NeoForgeEvents {
         //space stuff
-        private static int playerBreathTimer = 0;
-        private static int playerGravityTimer = 0;
-        private static float playerHealth;
-        private static LivingEntity entity;
-        private static Player player;
+        private static int gravityTimer = 0;
+        //private static LivingEntity entity;
+        //private static Player player;
 
+        @SubscribeEvent
+        public static void onEntityTick(EntityTickEvent.Pre event) {
+            if (!event.getEntity().level().isClientSide) {
+                if(event.getEntity() instanceof LivingEntity) {
+                    handleFalls((LivingEntity) event.getEntity(), event.getEntity().level().dimension());
+                    if (event.getEntity().getY() >= 50000) {
+                        Item item = ((LivingEntity) event.getEntity()).getItemBySlot(EquipmentSlot.CHEST).getItem();
+                        if (item == ModItems.SPACESUIT_CHESTPLATE.get() || item == ModItems.Z7_CHESTPLATE.get()) {
+                            ServerLevel destinationLevel = getServerLevel(event, item);
+                            ((LivingEntity) event.getEntity()).addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 9, 2));
+                            event.getEntity().teleportTo(destinationLevel, event.getEntity().getX(), 1500, event.getEntity().getZ(), EnumSet.noneOf(RelativeMovement.class), 2.0f, 2.0f);
+                        }
+                    }
+                    if (gravityTimer >= 20) {
+                        handleGravity(((LivingEntity) event.getEntity()), event.getEntity().level().dimension());
+                        gravityTimer = 0;
+                    } else {
+                        ++gravityTimer;
+                    }
+                }
+            }
+        }
+
+        private static @Nullable ServerLevel getServerLevel(EntityTickEvent.Pre event, Item item) {
+            MinecraftServer server = event.getEntity().getServer();
+            ResourceKey<Level> selectedPlanet;
+            try {
+                selectedPlanet = ((SpaceSuitChestplateItem) item).getSelectedPlanet();
+            } catch (Exception e) {
+                selectedPlanet = ((Z7ChestplateItem) item).getSelectedPlanet();
+            }
+            ServerLevel destinationLevel = server.getLevel(selectedPlanet);
+            return destinationLevel;
+        }
+
+        /*
         @SubscribeEvent
         public static void onPlayerTick(PlayerTickEvent.Pre event) {
             if (!event.getEntity().level().isClientSide) {
                 entity = event.getEntity();
                 player = ((Player) entity);
                 handleFalls(player, entity.level().dimension());
-                if (ModLists.NO_BREATHING_LIST.contains(player.level().dimension()) && !player.getAbilities().instabuild && !player.getAbilities().invulnerable) {
-                    if (playerBreathTimer >= 200) {
-                        if (!player.hasEffect(ModEffects.SPACE_BREATHING_EFFECT)) {
-                            player.sendSystemMessage(Component.literal(
-                                    "You can't breathe in space!"
-                            ));
-                            playerHealth = player.getHealth();
-                            player.setHealth(playerHealth -= 10);
-                        }
-                        playerBreathTimer = 0;
-                    } else {
-                        ++playerBreathTimer;
-                    }
-                }
                 if (playerGravityTimer >= 20) {
-                    handleGravity(player, player.level().dimension());
+                    handleGravity(entity, entity.level().dimension());
                     playerGravityTimer = 0;
                 } else {
                     ++playerGravityTimer;
@@ -91,6 +113,17 @@ public class ModEvents {
                         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 9, 2));
                         player.teleportTo(destinationLevel, player.getX(), 1500, player.getZ(), EnumSet.noneOf(RelativeMovement.class), 2.0f, 2.0f);
                     }
+                }
+            }
+        }
+         */
+
+
+        @SubscribeEvent
+        public static void onBreath(LivingBreatheEvent event) {
+            if (ModLists.NO_BREATHING_LIST.contains(event.getEntity().level().dimension())) {
+                if(!checkCanBreathe(event.getEntity())) {
+                    event.getEntity().setAirSupply(event.getEntity().getAirSupply() - 8);
                 }
             }
         }
@@ -118,7 +151,16 @@ public class ModEvents {
                 case 1 -> entity.resetFallDistance();
             }
         }
+
+        private static boolean checkCanBreathe(LivingEntity entity) {
+            if(entity instanceof Player) {
+                return ((Player) entity).getAbilities().instabuild ||
+                        ((Player) entity).getAbilities().invulnerable ||
+                        entity.hasEffect(ModEffects.SPACE_BREATHING_EFFECT);
+            }
+            else {
+                return entity.hasEffect(ModEffects.SPACE_BREATHING_EFFECT);
+            }
+        }
     }
-
-
 }

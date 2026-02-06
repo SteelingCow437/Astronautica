@@ -1,10 +1,10 @@
 package com.astronautica.world.feature;
 
-import com.google.common.base.Supplier;
-import com.google.common.base.Suppliers;
 import com.astronautica.Astronautica;
 import com.astronautica.block.ModBlocks;
 import com.astronautica.util.ModTags;
+import com.google.common.base.Supplier;
+import com.google.common.base.Suppliers;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

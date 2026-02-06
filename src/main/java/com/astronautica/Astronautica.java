@@ -66,7 +66,7 @@ public class Astronautica {
     }
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if(event.getTab() == ModCreativeModeTab.STM_BLOCKS.get()) {
+        if(event.getTab() == ModCreativeModeTab.ASTRONAUTICA_BLOCKS.get()) {
             event.accept(ModBlocks.TITANIUM_BLOCK);
             event.accept(ModBlocks.RAW_TITANIUM_BLOCK);
             event.accept(ModBlocks.TITANIUM_ORE);
@@ -80,7 +80,7 @@ public class Astronautica {
             event.accept(ModBlocks.MOON_ROCK);
             event.accept(ModBlocks.ENRICHED_MOON_ROCK);
         }
-        if(event.getTab() == ModCreativeModeTab.STM_ITEMS.get()) {
+        if(event.getTab() == ModCreativeModeTab.ASTRONAUTICA_ITEMS.get()) {
             event.accept(ModItems.TITANIUM_INGOT);
             event.accept(ModItems.RAW_TITANIUM);
             event.accept(ModItems.TITANIUM_PLATE);
@@ -124,7 +124,7 @@ public class Astronautica {
             event.accept(ModItems.COPPER_COIL);
             event.accept(ModItems.MINERAL_CLUMP);
         }
-        if(event.getTab() == ModCreativeModeTab.STM_TOOLS.get()) {
+        if(event.getTab() == ModCreativeModeTab.ASTRONAUTICA_TOOLS.get()) {
             event.accept(ModItems.TITANIUM_SWORD);
             event.accept(ModItems.TITANIUM_PICKAXE);
             event.accept(ModItems.TITANIUM_AXE);
@@ -164,14 +164,14 @@ public class Astronautica {
             event.accept(ModItems.STARGATE_CONTROLLER);
             event.accept(ModItems.RESOURCE_SCANNER);
         }
-        if(event.getTab() == ModCreativeModeTab.STM_FOODS.get()) {
+        if(event.getTab() == ModCreativeModeTab.ASTRONAUTICA_FOODS.get()) {
             event.accept(ModItems.BAGUETTE);
             event.accept(ModItems.LEAN);
             event.accept(ModItems.CANADA);
             event.accept(ModItems.ANTIDOTE);
             event.accept(ModItems.CANNED_BREAD);
         }
-        if(event.getTab() == ModCreativeModeTab.STM_MACHINES.get()) {
+        if(event.getTab() == ModCreativeModeTab.ASTRONAUTICA_MACHINES.get()) {
             //event.accept(ModBlocks.IRON_BARREL);
             event.accept(ModBlocks.FORGING_TABLE);
             event.accept(ModBlocks.PLANET_DIRECTORY);

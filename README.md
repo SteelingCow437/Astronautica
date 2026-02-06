@@ -13,8 +13,7 @@ FAQ:
 
 Versioning structure: NeoforgeVersion.MajorModVersion.MinorModVersion + Letter (A, B, C, etc. Used for playtesting.)
 
-"What versions?" 1.21.1 Neoforged, as of now. I'll update to the latest versions of everything as soon as
-I reasonably can.
+"What versions?" 1.21.1 Neoforged, as of now. I'll port it to the latest version eventually.
 
 "Fabric? Quilt? Regular Forge?" No. By all means, port them if you know how, but don't bother asking ME to do it.
 
@@ -26,7 +25,7 @@ suggestion.
 
 "When will X be done?" It won't :) I work at my own pace. Please don't rush me.
 
-"But Stellaris exists!" Let me have my fun. This mod is primarily for the server that my friends and I play on,
+"But X other mod exists!" Let me have my fun. This mod is primarily for the server that my friends and I play on,
 so I wanted to custom-make stuff that they would find fun / easy to understand / "out of the way" / balanced.
 
 "How do I make X?" Use the mod Just Enough Items / JEI / whatever it's called now.

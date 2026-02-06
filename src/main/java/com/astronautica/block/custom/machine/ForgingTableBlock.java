@@ -1,8 +1,8 @@
 package com.astronautica.block.custom.machine;
 
-import com.mojang.serialization.MapCodec;
 import com.astronautica.block.entity.machine.ForgingTableBlockEntity;
 import com.astronautica.item.ModItems;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
