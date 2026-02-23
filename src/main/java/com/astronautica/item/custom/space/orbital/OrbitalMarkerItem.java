@@ -1,10 +1,7 @@
 package com.astronautica.item.custom.space.orbital;
 
-import com.astronautica.block.custom.multiblock.OrbitalFlameCoreBlock;
-import com.astronautica.block.custom.multiblock.OrbitalTNTCoreBlock;
 import com.astronautica.data.ModDataStorage;
 import com.astronautica.util.ModLists;
-import com.astronautica.util.ModMultiBlockStructures;
 import com.astronautica.world.dimension.ModDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -78,24 +75,12 @@ public class OrbitalMarkerItem extends Item {
 
     private void orbitalTntCannon(ServerLevel level, BlockPos pos, Block block, BlockPos dropPos, Player player, InteractionHand usedHand) {
         setPos = dropPos;
-        if(((OrbitalTNTCoreBlock) block).isStructureValid(ModMultiBlockStructures.ORBITAL_TNT_CANNON, level, pos)) {
-            tntCannonActive = true;
-            player.getItemInHand(usedHand).shrink(1);
-        }
-        else {
-            player.sendSystemMessage(Component.literal("Cannon is incomplete!"));
-        }
+        tntCannonActive = true;
     }
 
     private void orbitalFlameCannon(ServerLevel level, BlockPos pos, Block block, BlockPos dropPos, Player player, InteractionHand usedHand) {
         setPos = dropPos;
-        if(((OrbitalFlameCoreBlock) block).isStructureValid(ModMultiBlockStructures.ORBITAL_FLAME_CANNON, level, pos)) { //stack.get(ModDataStorage.ORBITAL_CANNON_DIRECTION)
-            flameCannonActive = true;
-            player.getItemInHand(usedHand).shrink(1);
-        }
-        else {
-            player.sendSystemMessage(Component.literal("Cannon is incomplete!"));
-        }
+        flameCannonActive = true;
     }
 
     @Override
@@ -110,6 +95,7 @@ public class OrbitalMarkerItem extends Item {
                 tntCannonActive = false;
                 flameCannonActive = false;
                 firedShells = 0;
+                stack.shrink(1);
             }
             if (tntCannonActive) {
                 PrimedTnt tnt = new PrimedTnt(EntityType.TNT, level);
@@ -150,8 +136,11 @@ public class OrbitalMarkerItem extends Item {
             case 1 -> {
                 return "Orbital Flame Cannon";
             }
+
+            default -> {
+                return "Nothing!";
+            }
         }
-        return "Nothing!";
     }
 
     @Override

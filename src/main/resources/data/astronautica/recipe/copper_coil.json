@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "astronautica:iron_plate"
+      "item": "astronautica:tin_ingot"
     },
     "*": {
       "item": "astronautica:copper_wiring"

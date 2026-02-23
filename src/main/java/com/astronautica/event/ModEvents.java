@@ -14,7 +14,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.RelativeMovement;
@@ -29,7 +28,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
@@ -53,7 +51,7 @@ public class ModEvents {
 
         @SubscribeEvent
         public static void onEntityTick(EntityTickEvent.Pre event) {
-            if (!event.getEntity().level().isClientSide) {
+            if(!event.getEntity().level().isClientSide) {
                 if(event.getEntity() instanceof LivingEntity) {
                     handleFalls((LivingEntity) event.getEntity(), event.getEntity().level().dimension());
                     if (event.getEntity().getY() >= 50000) {

@@ -20,6 +20,9 @@
     "astronautica:orbital_flame_core",
     "astronautica:warp_drive",
     "astronautica:enriched_moon_rock",
+    "astronautica:orbital_tnt_slave",
+    "astronautica:orbital_flame_slave",
+    "astronautica:resource_radar_slave",
     "astronautica:resource_radar"
   ]
 }

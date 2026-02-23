@@ -9,6 +9,9 @@ import com.astronautica.block.custom.misc.SpaceAirBlock;
 import com.astronautica.block.custom.multiblock.OrbitalFlameCoreBlock;
 import com.astronautica.block.custom.multiblock.OrbitalTNTCoreBlock;
 import com.astronautica.block.custom.multiblock.ResourceRadarBlock;
+import com.astronautica.block.custom.multiblock.slave.OrbitalFlameSlaveBlock;
+import com.astronautica.block.custom.multiblock.slave.OrbitalTntSlaveBlock;
+import com.astronautica.block.custom.multiblock.slave.ResourceRadarSlaveBlock;
 import com.astronautica.item.ModItems;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -148,13 +151,28 @@ public class ModBlocks {
             () -> new OrbitalTNTCoreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
                     .strength(4f).requiresCorrectToolForDrops()));
 
+    public static final DeferredBlock<Block> ORBITAL_TNT_SLAVE = registerBlock("orbital_tnt_slave",
+            () -> new OrbitalTntSlaveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).strength(4f)
+                    .noLootTable().noOcclusion()));
+
     public static final DeferredBlock<Block> ORBITAL_FLAME_CORE = registerBlock("orbital_flame_core",
-            () -> new OrbitalFlameCoreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).strength(3f).requiresCorrectToolForDrops()));
+            () -> new OrbitalFlameCoreBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK)
+                    .strength(4f).requiresCorrectToolForDrops()));
+
+    public static final DeferredBlock<Block> ORBITAL_FLAME_SLAVE = registerBlock("orbital_flame_slave",
+            () -> new OrbitalFlameSlaveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).strength(4f)
+                    .noLootTable().noOcclusion()));
 
     public static final DeferredBlock<Block> RESOURCE_RADAR = registerBlock("resource_radar",
-            ()-> new ResourceRadarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).strength(3f).requiresCorrectToolForDrops()));
+            ()-> new ResourceRadarBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.IRON_BLOCK).strength(4f)
+                    .requiresCorrectToolForDrops()));
+
+    public static final DeferredBlock<Block> RESOURCE_RADAR_SLAVE = registerBlock("resource_radar_slave",
+            () -> new ResourceRadarSlaveBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GLASS).strength(4f)
+                    .noLootTable().noOcclusion()));
 
     //Air blocks / miscellaneous
     public static final DeferredBlock<Block> SPACE_AIR = registerBlock("space_air",
             () -> new SpaceAirBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AIR).replaceable().noCollission().noLootTable().air()));
+
 }

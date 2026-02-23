@@ -1,7 +1,7 @@
-// 1.21.1	2025-12-17T23:15:05.723441673	Tags for minecraft:block mod id astronautica
+// 1.21.1	2026-02-22T18:43:09.579547686	Tags for minecraft:block mod id astronautica
 dce957c07d469d1fb5a69d55114cf77ba4f3a569 data/astronautica/tags/block/moon_stone_replaceables.json
 70f05ae79bf51ecd4405104f00f4f11a7e2d6b66 data/minecraft/tags/block/beacon_base_blocks.json
-1dd807de53f67407c47ae2af2bb49a26dece3eed data/minecraft/tags/block/mineable/pickaxe.json
+6b52dae5607c6cda1d1bf8349a5edb46e09387f8 data/minecraft/tags/block/mineable/pickaxe.json
 7023aeba2953054b7076ddd4f1434cd7411af9ce data/minecraft/tags/block/mineable/shovel.json
 a499d1fb916ea2ff54fb303cfe912ff2bd058bcb data/minecraft/tags/block/needs_diamond_tool.json
 cac65e9f85f7c9bc5a44fb794bfcb1197cef0be2 data/minecraft/tags/block/needs_iron_tool.json

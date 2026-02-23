@@ -3,7 +3,6 @@ package com.astronautica.item.custom.tool;
 import com.astronautica.block.custom.multiblock.ResourceRadarBlock;
 import com.astronautica.data.ModDataStorage;
 import com.astronautica.util.ModLists;
-import com.astronautica.util.ModMultiBlockStructures;
 import com.astronautica.world.dimension.ModDimensions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -45,10 +44,7 @@ public class ResourceScannerItem extends Item {
             BlockPos dropPos = player.getOnPos();
             BlockPos pos = stack.get(ModDataStorage.LINKED_ORBITAL_CORE);
             Block block = moon.getBlockState(pos).getBlock();
-            boolean correctCore = false;
-            if(block instanceof ResourceRadarBlock) {
-                correctCore = ((ResourceRadarBlock) block).isStructureValid(ModMultiBlockStructures.RESOURCE_RADAR, moon, pos);
-            }
+            boolean correctCore = block instanceof ResourceRadarBlock;
             if (!moon.isClientSide && !player.level().isClientSide && correctCore) {
                 AABB bounds = new AABB(dropPos.getX() - 16, -62, dropPos.getZ() - 16, dropPos.getX() + 16, dropPos.getY() + 1, dropPos.getZ() + 16);
                 List<BlockState> B = new ArrayList<BlockState>(level.getBlockStates(bounds).toList());
