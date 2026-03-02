@@ -99,11 +99,11 @@ public class ResourceRadarBlock extends Block {
     private void setSlaves(Level level, BlockPos pos, BlockState state) {
         Direction d = state.getValue(ResourceRadarBlock.FACING);
         BlockPos toSet;
-        for(int y = 0; y < 5; ++y) {
+        for(int y = 0; y < 2; ++y) {
 
             for (int x = 1; x > -2; --x) {
 
-                for (int z = -2; z < 1; ++z) {
+                for (int z = -1; z < 2; ++z) {
                     switch (d) {
                         case SOUTH -> toSet = pos.offset(-x, y, -z);
                         case EAST -> toSet = pos.offset(-z, y, x);

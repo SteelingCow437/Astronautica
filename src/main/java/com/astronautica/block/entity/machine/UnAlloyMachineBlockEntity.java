@@ -42,7 +42,7 @@ public class UnAlloyMachineBlockEntity extends BlockEntity {
             setChanged();
         }
         else if(ModLists.FORGING_TABLE_INGREDIENT_LIST.contains(input.getItem())) {
-            if(input.getCount() % 2 == 0 && player != null && timer >= 100) {
+            if(input.getCount() % 2 == 0 && player != null && fuelTime > 0) {
                 int count = input.getCount();
                 int total = count / 2;
                 Item item = input.getItem();
@@ -77,7 +77,7 @@ public class UnAlloyMachineBlockEntity extends BlockEntity {
                 level.playSound(null, worldPosition, SoundEvents.END_PORTAL_SPAWN, SoundSource.BLOCKS, 2.0f, 2.0f);
             }
         }
-        else if(input.getItem() == ModItems.MINERAL_CLUMP.asItem() && player != null && timer >= 100) {
+        else if(input.getItem() == ModItems.MINERAL_CLUMP.asItem() && player != null && fuelTime > 0) {
             int r = random.nextInt(0, 100);
             if(r <= 19) {
                 player.addItem(new ItemStack(Items.LAPIS_LAZULI, 1));

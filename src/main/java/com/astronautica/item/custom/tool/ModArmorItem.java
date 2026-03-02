@@ -105,7 +105,7 @@ public class ModArmorItem extends ArmorItem {
     }
 
     private void spaceSuit(Player player) {
-        player.addEffect(new MobEffectInstance(ModEffects.SPACE_BREATHING_EFFECT, 100, 0, false, false));
+        player.addEffect(new MobEffectInstance(ModEffects.SPACE_BREATHING_EFFECT, 240, 0, false, false));
     }
 
     private void turtleMasterArmorInWater(Player player) {

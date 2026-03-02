@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "astronautica:block/orbital_flame_core"
+    "all": "astronautica:block/orbital_flame_core_block"
   }
 }
