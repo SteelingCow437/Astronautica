@@ -9,7 +9,7 @@
       "item": "astronautica:tin_ingot"
     },
     "*": {
-      "item": "minecraft:crafting_table"
+      "item": "minecraft:smithing_table"
     }
   },
   "pattern": [

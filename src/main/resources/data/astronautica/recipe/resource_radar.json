@@ -6,19 +6,22 @@
       "item": "minecraft:quartz"
     },
     "*": {
-      "item": "astronautica:steel_deco_block"
+      "item": "minecraft:end_stone_bricks"
     },
     "%": {
       "item": "astronautica:red_coil"
     },
     "$": {
       "item": "astronautica:bronze_ingot"
+    },
+    "!": {
+      "item": "astronautica:byzanium_ingot"
     }
   },
   "pattern": [
     "###",
-    "%$%",
-    "%*%"
+    "$%$",
+    "*!*"
   ],
   "result": {
     "count": 1,

@@ -16,7 +16,7 @@ public class Z7ChestplateItem extends ModArmorItem {
 
     public Z7ChestplateItem() {
         super(ModArmorMaterials.Z7, Type.CHESTPLATE, new Properties().fireResistant()
-                .durability(Type.CHESTPLATE.getDurability(50)));
+                .durability(Type.CHESTPLATE.getDurability(150)));
     }
 
     public ResourceKey<Level> selectedPlanet;

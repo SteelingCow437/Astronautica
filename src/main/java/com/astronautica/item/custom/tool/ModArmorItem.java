@@ -100,8 +100,8 @@ public class ModArmorItem extends ArmorItem {
 
     //Lists of armor effects!
     private void copperEffect(Player player) {
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 110, 0, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 210, 0, false, false));
     }
 
     private void spaceSuit(Player player) {
@@ -109,12 +109,12 @@ public class ModArmorItem extends ArmorItem {
     }
 
     private void turtleMasterArmorInWater(Player player) {
-        player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 100, 1, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 100, 1, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 100, 0, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 1, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 1, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 100, 1, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DOLPHINS_GRACE, 110, 1, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 110, 1, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 110, 0, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 110, 1, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 110, 1, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 110, 1, false, false));
     }
 
     private void turtleMasterArmorOnLand(Player player) {
@@ -122,14 +122,14 @@ public class ModArmorItem extends ArmorItem {
     }
 
     private void evaluateZ7Effect(Player player) {
-        player.addEffect(new MobEffectInstance(ModEffects.SPACE_BREATHING_EFFECT, 100, 0, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 4, false, false));
+        player.addEffect(new MobEffectInstance(ModEffects.SPACE_BREATHING_EFFECT, 110, 0, false, false));
+        player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 110, 1, false, false));
         if(player.isInWaterRainOrBubble()) {
-            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 100, 0, false, false));
-            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 100, 0, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 110, 0, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 110, 0, false, false));
         }
         if(player.isOnFire()) {
-            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100, 0, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 110, 0, false, false));
         }
     }
 }

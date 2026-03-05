@@ -100,10 +100,6 @@ public class ForgingTableBlock extends BaseEntityBlock {
         return super.useItemOn(stack, state, level, pos, player, hand, result);
     }
 
-    private boolean isRenderEntityValid(Level level, BlockPos pos, ForgingTableBlockEntity entity) {
-        return entity.getRenderItem() != null;
-    }
-
     @Override
     public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
         super.destroy(level, pos, state);

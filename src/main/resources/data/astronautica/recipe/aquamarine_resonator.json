@@ -10,12 +10,16 @@
     },
     "$": {
       "item": "minecraft:netherite_ingot"
+    },
+    "^": {
+      "item": "astronautica:bronze_ingot"
     }
+
   },
   "pattern": [
-    "$*$",
-    "*#*",
-    "$*$"
+    "*$*",
+    "^#^",
+    "*$*"
   ],
   "result": {
     "count": 1,

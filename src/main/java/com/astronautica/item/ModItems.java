@@ -254,18 +254,18 @@ public class ModItems {
     //Z7 Suit! (Yes I know it's a Garden Warfare 2, Mass Effect, AND NASA reference, stop bitching about it!)
     public static final DeferredItem<Item> Z7_HELMET = ITEMS.register("z7_helmet",
             () -> new ModArmorItem(ModArmorMaterials.Z7, ArmorItem.Type.HELMET,
-                    new Item.Properties().fireResistant().durability(ArmorItem.Type.HELMET.getDurability(50))));
+                    new Item.Properties().fireResistant().durability(ArmorItem.Type.HELMET.getDurability(150))));
 
     public static final DeferredItem<Item> Z7_CHESTPLATE = ITEMS.register("z7_chestplate",
             Z7ChestplateItem::new);
 
     public static final DeferredItem<Item> Z7_LEGGINGS = ITEMS.register("z7_leggings",
             () -> new ModArmorItem(ModArmorMaterials.Z7, ArmorItem.Type.LEGGINGS,
-                    new Item.Properties().fireResistant().durability(ArmorItem.Type.HELMET.getDurability(50))));
+                    new Item.Properties().fireResistant().durability(ArmorItem.Type.HELMET.getDurability(150))));
 
     public static final DeferredItem<Item> Z7_BOOTS = ITEMS.register("z7_boots",
             () -> new ModArmorItem(ModArmorMaterials.Z7, ArmorItem.Type.BOOTS,
-                    new Item.Properties().fireResistant().durability(ArmorItem.Type.HELMET.getDurability(50))));
+                    new Item.Properties().fireResistant().durability(ArmorItem.Type.HELMET.getDurability(150))));
 
     //planet keys
     public static final DeferredItem<Item> MOON_KEY = ITEMS.register("moon_key",

@@ -240,11 +240,13 @@ public class ForgingTableBlockEntity extends BlockEntity {
             dIngredient.setPos(Vec3.atCenterOf(new Vec3i(pos.getX(), pos.getY(), pos.getZ())));
             level.addFreshEntity(dIngredient);
         }
+        setChanged();
     }
 
     public void setupItemEntities(Level level) {
         renderItem = new ItemEntity(EntityType.ITEM, level);
         dIngredient = new ItemEntity(EntityType.ITEM, level);
         dStamp = new ItemEntity(EntityType.ITEM, level);
+        setChanged();
     }
 }

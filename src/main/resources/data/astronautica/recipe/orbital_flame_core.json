@@ -3,19 +3,25 @@
   "category": "misc",
   "key": {
     "#": {
-      "item": "astronautica:steel_plate"
+      "item": "astronautica:byzanium_ingot"
     },
     "*": {
-      "item": "minecraft:end_crystal"
+      "item": "minecraft:gold_block"
     },
     "%": {
-      "item": "astronautica:copper_redstide_ingot"
+      "item": "minecraft:nether_bricks"
+    },
+    "!": {
+      "item": "astronautica:bronze_plate"
+    },
+    "^": {
+      "item": "astronautica:copper_coil"
     }
   },
   "pattern": [
-    "%#%",
-    "#*#",
-    "%#%"
+    "!!!",
+    "#^#",
+    "%*%"
   ],
   "result": {
     "count": 1,

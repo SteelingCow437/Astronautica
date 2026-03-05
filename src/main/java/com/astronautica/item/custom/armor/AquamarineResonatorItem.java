@@ -31,8 +31,8 @@ public class AquamarineResonatorItem extends ModArmorItem {
         if(!level.isClientSide) {
             slotItem = ((Player) entity).getItemBySlot(EquipmentSlot.CHEST).getItem();
             if (slotItem instanceof AquamarineResonatorItem) {
-                if (timer >= 399) {
-                    ((Player) entity).addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 400, 4, false, false));
+                if (timer >= 599) {
+                    ((Player) entity).addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 600, 4, false, false));
                     timer = 0;
                 } else {
                     ++timer;
