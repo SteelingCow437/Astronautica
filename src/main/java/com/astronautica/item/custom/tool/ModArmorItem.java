@@ -122,7 +122,7 @@ public class ModArmorItem extends ArmorItem {
     }
 
     private void evaluateZ7Effect(Player player) {
-        player.addEffect(new MobEffectInstance(ModEffects.SPACE_BREATHING_EFFECT, 110, 0, false, false));
+        player.addEffect(new MobEffectInstance(ModEffects.SPACE_BREATHING_EFFECT, 240, 0, false, false));
         player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 110, 1, false, false));
         if(player.isInWaterRainOrBubble()) {
             player.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 110, 0, false, false));
