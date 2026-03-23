@@ -1,0 +1,28 @@
+{
+  "parent": "astronautica:astronautica/the_moon",
+  "criteria": {
+    "die": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.die_on_moon.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "minecraft:bone"
+    },
+    "title": {
+      "translate": "advancements.astronautica.die_on_moon.title"
+    }
+  },
+  "requirements": [
+    [
+      "die"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

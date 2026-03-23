@@ -1,0 +1,33 @@
+{
+  "parent": "astronautica:astronautica/find_overworld_spire",
+  "criteria": {
+    "moon_key": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:moon_key"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.find_moon_key.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "astronautica:moon_key"
+    },
+    "title": {
+      "translate": "advancements.astronautica.find_moon_key.title"
+    }
+  },
+  "requirements": [
+    [
+      "moon_key"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

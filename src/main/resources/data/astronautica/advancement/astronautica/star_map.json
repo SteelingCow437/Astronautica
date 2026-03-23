@@ -1,0 +1,33 @@
+{
+  "parent": "astronautica:astronautica/root",
+  "criteria": {
+    "pickup_star_map": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:planet_directory"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.star_map_pickup.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "astronautica:planet_directory"
+    },
+    "title": {
+      "translate": "advancements.astronautica.star_map_pickup.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_star_map"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

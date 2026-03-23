@@ -1,0 +1,30 @@
+{
+  "parent": "astronautica:astronautica/big_kahuna",
+  "criteria": {
+    "entered_moon": {
+      "conditions": {
+        "to": "astronautica:moon"
+      },
+      "trigger": "minecraft:changed_dimension"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.the_moon.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "astronautica:moon_dirt"
+    },
+    "title": {
+      "translate": "advancements.astronautica.the_moon.title"
+    }
+  },
+  "requirements": [
+    [
+      "entered_moon"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

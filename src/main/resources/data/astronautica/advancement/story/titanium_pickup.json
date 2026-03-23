@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:story/smelt_iron",
+  "criteria": {
+    "pickup_titanium_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:titanium_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.titanium_pickup.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "astronautica:titanium_ingot"
+    },
+    "title": {
+      "translate": "advancements.astronautica.titanium_pickup.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_titanium_ingot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

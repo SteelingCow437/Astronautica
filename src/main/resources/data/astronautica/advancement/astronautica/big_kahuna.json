@@ -1,0 +1,33 @@
+{
+  "parent": "astronautica:astronautica/star_map",
+  "criteria": {
+    "big_kahuna": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:big_kahuna"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.big_kahuna.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "astronautica:big_kahuna"
+    },
+    "title": {
+      "translate": "advancements.astronautica.big_kahuna.title"
+    }
+  },
+  "requirements": [
+    [
+      "big_kahuna"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

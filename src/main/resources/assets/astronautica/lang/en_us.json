@@ -134,5 +134,40 @@
   "item.astronautica.mineral_clump": "Clump Of Minerals",
   "item.astronautica.resource_scanner": "Resource Scanner",
   "block.astronautica.resource_radar": "Resource Radar",
-  "block.astronautica.space_air": "Space Air"
+  "block.astronautica.space_air": "Space Air",
+
+  "advancements.astronautica.root_description": "Astronautica Advancements",
+  "advancements.astronautica.root_title": "Astronautica Advancements",
+
+  "advancements.astronautica.titanium_pickup": "Acquire Better Hardware",
+  "advancements.astronautica.titanium_pickup.description": "Get your hands on a Titanium Ingot",
+  "advancements.astronautica.titanium_pickup.title": "Acquire Better Hardware",
+
+  "advancements.astronautica.forging_table": "Forged in Fire",
+  "advancements.astronautica.forging_table_pickup.description": "Craft a Forging Table",
+  "advancements.astronautica.forging_table_pickup.title": "Forged in Fire",
+
+  "advancements.astronautica.find_overworld_spire": "A Curious Construct",
+  "advancements.astronautica.find_overworld_spire.description": "Find an Overworld Spire",
+  "advancements.astronautica.find_overworld_spire.title": "A Curious Construct",
+
+  "advancements.astronautica.find_moon_key": "A Path to the Stars",
+  "advancements.astronautica.find_moon_key.description": "Locate a map to the Moon in an Overworld Spire",
+  "advancements.astronautica.find_moon_key.title": "A Path to the Stars",
+
+  "advancements.astronautica.star_map": "Mapping the Unknown",
+  "advancements.astronautica.star_map_pickup.description": "Craft a Star Map",
+  "advancements.astronautica.star_map_pickup.title": "Mapping the Unknown",
+
+  "advancements.astronautica.big_kahuna": "The Big One",
+  "advancements.astronautica.big_kahuna.description": "Craft the Big Kahuna",
+  "advancements.astronautica.big_kahuna.title": "The Big One",
+
+  "advancements.astronautica.the_moon": "One Small Step for Man",
+  "advancements.astronautica.the_moon.description": "One Giant Leap for Mankind",
+  "advancements.astronautica.the_moon.title": "One Small Step for Man",
+
+  "advancements.astronautica.die_on_moon": "One Giant Leap Into the Grave",
+  "advancements.astronautica.die_on_moon.description": "Make your mark on history by dying on the Moon",
+  "advancements.astronautica.die_on_moon.title": "One Giant Leap Into the Grave"
 }

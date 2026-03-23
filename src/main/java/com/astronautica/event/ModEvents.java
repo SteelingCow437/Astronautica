@@ -8,10 +8,16 @@ import com.astronautica.item.custom.armor.SpaceSuitChestplateItem;
 import com.astronautica.item.custom.armor.Z7ChestplateItem;
 import com.astronautica.util.ModAttributeModifiers;
 import com.astronautica.util.ModLists;
+import com.astronautica.world.dimension.ModDimensions;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -27,6 +33,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import org.jetbrains.annotations.Nullable;
 
@@ -68,6 +75,15 @@ public class ModEvents {
                     } else {
                         ++gravityTimer;
                     }
+                }
+            }
+        }
+        
+        @SubscribeEvent
+        public static void onPlayerDeath(LivingDeathEvent event) {
+            if(event.getEntity() instanceof ServerPlayer) {
+                if(event.getEntity().level().dimension() == ModDimensions.MOON) {
+                    giveDeathAdvancement(((ServerPlayer) event.getEntity()));
                 }
             }
         }
@@ -126,19 +142,33 @@ public class ModEvents {
             }
         }
 
+        private static void giveDeathAdvancement(ServerPlayer player) {
+            if(player != null) {
+                PlayerAdvancements advancements = player.getAdvancements();
+                AdvancementHolder death = player.server.getAdvancements().get(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "astronautica/die_on_moon"));
+                if(death != null) {
+                    advancements.getOrStartProgress(death);
+                    advancements.award(death, "die");
+                }
+                else {
+                    player.sendSystemMessage(Component.literal("BIG GAY BALLS"));
+                }
+            }
+        }
+
         private static void handleGravity(LivingEntity entity, ResourceKey<Level> planet) {
             AttributeInstance gravity = entity.getAttribute(Attributes.GRAVITY.getDelegate());
             switch (ModLists.PLANET_LIST.indexOf(planet)) {
+                case 1 -> {
+                    if (!gravity.hasModifier(ModAttributeModifiers.MOON_GRAVITY.id())) {
+                        gravity.addTransientModifier(ModAttributeModifiers.MOON_GRAVITY);
+                    }
+                }
                 default -> {
                     for (int i = 0; i < ModLists.GRAVITY_CONSTANTS.size(); ++i) {
                         if (gravity.hasModifier(ModLists.GRAVITY_CONSTANTS.get(i).id())) {
                             gravity.removeModifier(ModLists.GRAVITY_CONSTANTS.get(i));
                         }
-                    }
-                }
-                case 1 -> {
-                    if (!gravity.hasModifier(ModAttributeModifiers.MOON_GRAVITY.id())) {
-                        gravity.addTransientModifier(ModAttributeModifiers.MOON_GRAVITY);
                     }
                 }
             }

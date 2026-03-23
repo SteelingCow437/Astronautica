@@ -1,0 +1,33 @@
+{
+  "parent": "astronautica:astronautica/root",
+  "criteria": {
+    "pickup_forging_table": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:forging_table"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.forging_table_pickup.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "astronautica:forging_table"
+    },
+    "title": {
+      "translate": "advancements.astronautica.forging_table_pickup.title"
+    }
+  },
+  "requirements": [
+    [
+      "pickup_forging_table"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
