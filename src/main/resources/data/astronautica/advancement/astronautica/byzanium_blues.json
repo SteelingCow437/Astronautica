@@ -1,0 +1,34 @@
+{
+  "parent": "astronautica:astronautica/vault_key",
+  "criteria": {
+    "byzanium_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:byzanium_ingot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.byzanium_blues.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "astronautica:byzanium_ingot"
+    },
+    "title": {
+      "translate": "advancements.astronautica.byzanium_blues.title"
+    }
+  },
+  "requirements": [
+    [
+      "byzanium_ingot"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

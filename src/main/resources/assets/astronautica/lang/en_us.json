@@ -169,5 +169,29 @@
 
   "advancements.astronautica.die_on_moon": "One Giant Leap Into the Grave",
   "advancements.astronautica.die_on_moon.description": "Make your mark on history by dying on the Moon",
-  "advancements.astronautica.die_on_moon.title": "One Giant Leap Into the Grave"
+  "advancements.astronautica.die_on_moon.title": "One Giant Leap Into the Grave",
+
+  "advancements.astronautica.dress_to_impress": "Dress to Impress",
+  "advancements.astronautica.dress_to_impress.description": "Craft a full Space Suit",
+  "advancements.astronautica.dress_to_impress.title": "Dress to Impress",
+
+  "advancements.astronautica.vault_key": "This Looks Important",
+  "advancements.astronautica.vault_key.description": "Find a Vault Key in a Moon Fort",
+  "advancements.astronautica.vault_key.title": "This Looks Important",
+
+  "advancements.astronautica.byzanium_blues": "Byzanium Blues",
+  "advancements.astronautica.byzanium_blues.description": "Obtain an ingot of Byzanium, a rare and powerful supermetal, WITHOUT raising the Titanic",
+  "advancements.astronautica.byzanium_blues.title": "Byzanium Blues",
+
+  "advancements.astronautica.z7_suit": "The Pimp Suit",
+  "advancements.astronautica.z7_suit.description": "Create the strongest armor to ever exist",
+  "advancements.astronautica.z7_suit.title": "The Pimp Suit",
+
+  "advancements.astronautica.tnt_compressor": "Super Squeezer",
+  "advancements.astronautica.tnt_compressor.description": "Craft a TNT Compressor",
+  "advancements.astronautica.tnt_compressor.title": "Super Squeezer",
+
+  "advancements.astronautica.hammer": "Stop, Hammertime!",
+  "advancements.astronautica.hammer.description": "Craft a Hammer",
+  "advancements.astronautica.hammer.title": "Stop, Hammertime!"
 }

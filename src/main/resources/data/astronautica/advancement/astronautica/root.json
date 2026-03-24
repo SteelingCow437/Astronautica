@@ -9,13 +9,13 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "astronautica:textures/block/titanium_block.png",
+    "background": "astronautica:textures/block/moon_rock.png",
     "description": {
       "translate": "advancements.astronautica.root_description"
     },
     "icon": {
       "count": 1,
-      "id": "astronautica:raw_titanium_block"
+      "id": "astronautica:moon_dirt"
     },
     "show_toast": false,
     "title": {

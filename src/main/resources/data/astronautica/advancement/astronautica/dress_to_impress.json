@@ -1,0 +1,42 @@
+{
+  "parent": "astronautica:astronautica/forging_table",
+  "criteria": {
+    "space_suit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:spacesuit_helmet"
+          },
+          {
+            "items": "astronautica:spacesuit_chestplate"
+          },
+          {
+            "items": "astronautica:spacesuit_legs"
+          },
+          {
+            "items": "astronautica:spacesuit_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.dress_to_impress.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "astronautica:spacesuit_chestplate"
+    },
+    "title": {
+      "translate": "advancements.astronautica.dress_to_impress.title"
+    }
+  },
+  "requirements": [
+    [
+      "space_suit"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

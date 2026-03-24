@@ -1,11 +1,11 @@
 {
-  "parent": "astronautica:astronautica/tnt_compressor",
+  "parent": "astronautica:astronautica/forging_table",
   "criteria": {
-    "big_kahuna": {
+    "tnt_compressor": {
       "conditions": {
         "items": [
           {
-            "items": "astronautica:big_kahuna"
+            "items": "astronautica:tnt_compressor"
           }
         ]
       },
@@ -14,19 +14,19 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.astronautica.big_kahuna.description"
+      "translate": "advancements.astronautica.tnt_compressor.description"
     },
     "icon": {
       "count": 1,
-      "id": "astronautica:big_kahuna"
+      "id": "astronautica:tnt_compressor"
     },
     "title": {
-      "translate": "advancements.astronautica.big_kahuna.title"
+      "translate": "advancements.astronautica.tnt_compressor.title"
     }
   },
   "requirements": [
     [
-      "big_kahuna"
+      "tnt_compressor"
     ]
   ],
   "sends_telemetry_event": true

@@ -1,5 +1,5 @@
 {
-  "parent": "astronautica:astronautica/root",
+  "parent": "astronautica:astronautica/forging_table",
   "criteria": {
     "pickup_star_map": {
       "conditions": {

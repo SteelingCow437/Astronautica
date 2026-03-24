@@ -1,11 +1,11 @@
 {
-  "parent": "astronautica:astronautica/tnt_compressor",
+  "parent": "astronautica:astronautica/root",
   "criteria": {
-    "big_kahuna": {
+    "hammer": {
       "conditions": {
         "items": [
           {
-            "items": "astronautica:big_kahuna"
+            "items": "astronautica:hammer"
           }
         ]
       },
@@ -14,19 +14,19 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.astronautica.big_kahuna.description"
+      "translate": "advancements.astronautica.hammer.description"
     },
     "icon": {
       "count": 1,
-      "id": "astronautica:big_kahuna"
+      "id": "astronautica:hammer"
     },
     "title": {
-      "translate": "advancements.astronautica.big_kahuna.title"
+      "translate": "advancements.astronautica.hammer.title"
     }
   },
   "requirements": [
     [
-      "big_kahuna"
+      "hammer"
     ]
   ],
   "sends_telemetry_event": true

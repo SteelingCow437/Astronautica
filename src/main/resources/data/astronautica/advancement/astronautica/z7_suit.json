@@ -1,0 +1,44 @@
+{
+  "parent": "astronautica:astronautica/byzanium_blues",
+  "criteria": {
+    "z7_suit": {
+      "conditions": {
+        "items": [
+          {
+            "items": "astronautica:z7_helmet"
+          },
+          {
+            "items": "astronautica:z7_chestplate"
+          },
+          {
+            "items": "astronautica:z7_leggings"
+          },
+          {
+            "items": "astronautica:z7_boots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.astronautica.z7_suit.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "count": 1,
+      "id": "astronautica:z7_chestplate"
+    },
+    "title": {
+      "translate": "advancements.astronautica.z7_suit.title"
+    }
+  },
+  "requirements": [
+    [
+      "z7_suit"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

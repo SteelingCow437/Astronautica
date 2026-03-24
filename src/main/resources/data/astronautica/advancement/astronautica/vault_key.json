@@ -1,11 +1,11 @@
 {
-  "parent": "astronautica:astronautica/tnt_compressor",
+  "parent": "astronautica:astronautica/the_moon",
   "criteria": {
-    "big_kahuna": {
+    "vault_key": {
       "conditions": {
         "items": [
           {
-            "items": "astronautica:big_kahuna"
+            "items": "astronautica:vault_key"
           }
         ]
       },
@@ -14,19 +14,19 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.astronautica.big_kahuna.description"
+      "translate": "advancements.astronautica.vault_key.description"
     },
     "icon": {
       "count": 1,
-      "id": "astronautica:big_kahuna"
+      "id": "astronautica:vault_key"
     },
     "title": {
-      "translate": "advancements.astronautica.big_kahuna.title"
+      "translate": "advancements.astronautica.vault_key.title"
     }
   },
   "requirements": [
     [
-      "big_kahuna"
+      "vault_key"
     ]
   ],
   "sends_telemetry_event": true
