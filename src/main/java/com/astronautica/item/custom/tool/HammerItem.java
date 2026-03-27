@@ -4,15 +4,15 @@ import com.astronautica.block.ModBlocks;
 import com.astronautica.item.ModItems;
 import com.astronautica.util.ModLists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+
+import java.util.List;
 
 public class HammerItem extends Item {
     public HammerItem() {
@@ -48,5 +48,16 @@ public class HammerItem extends Item {
             }
         }
         return InteractionResult.FAIL;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
+        if(tooltipFlag.hasShiftDown()) {
+            list.add(Component.literal("Use this to make wires and stamps on a Forging Table."
+            + "\nAlternatively, shift-right-click on a Forging Table with an ingot in your offhand to powderize it!"));
+        }
+        else {
+            list.add(Component.literal("Hold [SHIFT] for help!"));
+        }
     }
 }

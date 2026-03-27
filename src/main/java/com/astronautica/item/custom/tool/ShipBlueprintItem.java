@@ -49,21 +49,26 @@ public class ShipBlueprintItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-        int x;
-        int y;
-        int z;
-        try {
-            x = stack.get(ModDataStorage.SHIP_SIZE).getX();
-            y = stack.get(ModDataStorage.SHIP_SIZE).getY();
-            z = stack.get(ModDataStorage.SHIP_SIZE).getZ();
+        if(!flag.hasShiftDown()) {
+            int x;
+            int y;
+            int z;
+            try {
+                x = stack.get(ModDataStorage.SHIP_SIZE).getX();
+                y = stack.get(ModDataStorage.SHIP_SIZE).getY();
+                z = stack.get(ModDataStorage.SHIP_SIZE).getZ();
+            } catch (Exception e) {
+                x = 0;
+                y = 0;
+                z = 0;
+            }
+            list.add(Component.literal("Ship Dimensions: " + x + ", " + y + ", " + z).append("\n")
+                    .append("Hold [SHIFT] for help!"));
         }
-        catch(Exception e) {
-            x = 0;
-            y = 0;
-            z = 0;
+        else {
+            list.add(Component.literal("Click this on a sign with the X, Y, and Z radii on separate lines " +
+                    "(in that order) to save the size, then click on a Warp Drive to tell it the size of the ship."));
         }
-        list.add(Component.literal("Ship Dimensions: " + x + ", " +
-                y + ", " + z));
         super.appendHoverText(stack, context, list, flag);
     }
 }

@@ -22,15 +22,14 @@ public class BigKahunaItem extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-            if(player.getY() >= 300) {
-                player.setDeltaMovement(player.getDeltaMovement().x, player.getDeltaMovement().y * 12000, player.getDeltaMovement().z);
-                player.getItemInHand(usedHand).shrink(1);
+        if (player.getY() >= 300) {
+            player.setDeltaMovement(player.getDeltaMovement().x * 120, player.getDeltaMovement().y * 15000, player.getDeltaMovement().z * 120);
+            player.getItemInHand(usedHand).shrink(1);
+        } else {
+            if (!level.isClientSide()) {
+                player.sendSystemMessage(Component.literal("You must be at or above Y: 300 to use this!"));
             }
-            else {
-                if(!level.isClientSide()) {
-                    player.sendSystemMessage(Component.literal("You must be at or above Y: 300 to use this!"));
-                }
-            }
+        }
         return InteractionResultHolder.success(player.getItemInHand(usedHand));
     }
 

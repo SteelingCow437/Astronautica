@@ -68,20 +68,25 @@ public class StarGateControllerItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
-        int x;
-        int y;
-        int z;
-        try {
-            x = stack.get(ModDataStorage.SGC_DESTINATION).getX();
-            y = stack.get(ModDataStorage.SGC_DESTINATION).getY();
-            z = stack.get(ModDataStorage.SGC_DESTINATION).getZ();
+        if(!flag.hasShiftDown()) {
+            int x;
+            int y;
+            int z;
+            try {
+                x = stack.get(ModDataStorage.SGC_DESTINATION).getX();
+                y = stack.get(ModDataStorage.SGC_DESTINATION).getY();
+                z = stack.get(ModDataStorage.SGC_DESTINATION).getZ();
+            } catch (Exception e) {
+                x = 0;
+                y = 0;
+                z = 0;
+            }
+            list.add(Component.literal("Destination Coordinates: " + x + ", " + y + ", " + z).append(". Hold [SHIFT] for help!"));
         }
-        catch(Exception e) {
-            x = 0;
-            y = 0;
-            z = 0;
+        else {
+            list.add(Component.literal("Click this on a sign with the X, Y, and Z coordinates on separate lines " +
+                    "(in that order) to save the destination, then click on a Warp Drive or Stargate Core to input those coordinates into the block."));
         }
-        list.add(Component.literal("Destination: " + x + ", " + y + ", " + z));
         super.appendHoverText(stack, context, list, flag);
     }
 }

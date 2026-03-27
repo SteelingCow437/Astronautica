@@ -13,6 +13,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -57,5 +58,17 @@ public class ResourceScannerItem extends Item {
             return InteractionResultHolder.success(player.getMainHandItem());
         }
         return InteractionResultHolder.fail(player.getMainHandItem());
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if(tooltipFlag.hasShiftDown()) {
+            tooltipComponents.add(Component.literal("Link this to a Resource Radar on the Moon to scan for resources."));
+        }
+        else {
+            tooltipComponents.add(Component.literal("Hold [SHIFT] for help!"));
+        }
+
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
     }
 }
