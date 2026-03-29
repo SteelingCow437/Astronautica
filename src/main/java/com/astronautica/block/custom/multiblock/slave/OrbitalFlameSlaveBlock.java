@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -62,23 +63,23 @@ public class OrbitalFlameSlaveBlock extends TransparentBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if(hasMaster) {
             master.useItemOn(stack, getMasterState(), level, getMasterPos(), player, hand, hitResult);
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
         else {
             refreshMaster(level, pos);
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
         }
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        if(level.getBlockState(neighborPos).getBlock() == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
-            level.setBlockAndUpdate(pos, level.getBlockState(neighborPos));
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @org.jspecify.annotations.Nullable Orientation orientation, boolean movedByPiston) {
+        if(block == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
+            level.setBlockAndUpdate(pos, level.getBlockState(pos));
         }
-        if(level.getBlockState(neighborPos).getBlock() == Blocks.AIR) {
+        if(block == Blocks.AIR) {
             level.scheduleTick(pos, this, 1);
         }
     }

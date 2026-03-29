@@ -4,12 +4,12 @@ import com.astronautica.block.entity.ModBlockEntities;
 import com.astronautica.util.ModLists;
 import com.astronautica.world.dimension.ModDimensions;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class PlanetDirectoryBlockEntity extends BlockEntity {
 
@@ -85,16 +85,16 @@ public class PlanetDirectoryBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        tag.putBoolean("moon", moon);
-        tag.putInt("selected_planet", selectedPlanet);
-        super.saveAdditional(tag, provider);
+    protected void saveAdditional(ValueOutput output) {
+        output.putBoolean("moon", moon);
+        output.putInt("selected_planet", selectedPlanet);
+        super.saveAdditional(output);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        moon = tag.getBoolean("moon");
-        selectedPlanet = tag.getInt("selected_planet");
-        super.loadAdditional(tag, provider);
+    protected void loadAdditional(ValueInput input) {
+        moon = input.getBooleanOr("moon", false);
+        selectedPlanet = input.getIntOr("selected_planet", 0);
+        super.loadAdditional(input);
     }
 }

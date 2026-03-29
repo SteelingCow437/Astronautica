@@ -1,8 +1,10 @@
 package com.astronautica.effect;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 
 public class OilEffect extends MobEffect {
     public OilEffect(MobEffectCategory mobEffectCategory, int color) {
@@ -10,16 +12,16 @@ public class OilEffect extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        if (!livingEntity.level().isClientSide()) {
-            double x = livingEntity.getX();
-            double y = livingEntity.getY();
-            double z = livingEntity.getZ();
-            if(livingEntity.isInWaterOrRain()) {
-                livingEntity.moveTo(x, y + 0.15, z);
+    public boolean applyEffectTick(ServerLevel serverLevel, LivingEntity mob, int amplification) {
+        if (!mob.level().isClientSide()) {
+            double x = mob.getX();
+            double y = mob.getY();
+            double z = mob.getZ();
+            if(mob.isInWaterOrRain()) {
+                mob.addDeltaMovement(new Vec3(mob.getDeltaMovement().x, mob.getDeltaMovement().y + 0.05, mob.getDeltaMovement().z));
             }
         }
-        return super.applyEffectTick(livingEntity, amplifier);
+        return super.applyEffectTick(serverLevel, mob, amplification);
     }
 }
 

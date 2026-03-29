@@ -1,7 +1,7 @@
 package com.astronautica.util;
 
 import com.astronautica.Astronautica;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 
 public class ModAttributeModifiers {
@@ -13,5 +13,5 @@ public class ModAttributeModifiers {
      */
 
     //Gravity modifiers
-    public static final AttributeModifier MOON_GRAVITY = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "lunar_surface_gravity"), -0.066, AttributeModifier.Operation.ADD_VALUE);
+    public static final AttributeModifier MOON_GRAVITY = new AttributeModifier(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "lunar_surface_gravity"), -0.066, AttributeModifier.Operation.ADD_VALUE);
 }

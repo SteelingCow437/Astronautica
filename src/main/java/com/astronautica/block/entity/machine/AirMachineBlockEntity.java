@@ -4,8 +4,6 @@ import com.astronautica.block.ModBlocks;
 import com.astronautica.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -16,6 +14,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 
 public class AirMachineBlockEntity extends BlockEntity {
 
@@ -36,10 +36,10 @@ public class AirMachineBlockEntity extends BlockEntity {
     public void addFuel(Level level, Player player, InteractionHand hand) {
         if(!level.isClientSide() && timeRemaining < 72000) {
             ItemStack input = new ItemStack(player.getItemInHand(hand).getItem(), 1);
-            timeRemaining += input.getBurnTime(RecipeType.SMELTING) * 2;
+            timeRemaining += input.getBurnTime(RecipeType.SMELTING, level.fuelValues()) * 2;
             level.playSound(null, worldPosition, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 2.0f, 2.0f);
-            if(!input.getCraftingRemainingItem().isEmpty()) {
-                player.addItem(input.getCraftingRemainingItem());
+            if(input.getCraftingRemainder().item() != null) {
+                player.addItem(new ItemStack(input.getCraftingRemainder().item(), input.count()));
             }
             player.getItemInHand(hand).shrink(1);
             setChanged();
@@ -99,14 +99,14 @@ public class AirMachineBlockEntity extends BlockEntity {
 
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        tag.putInt("time", timeRemaining);
-        super.saveAdditional(tag, provider);
+    protected void saveAdditional(ValueOutput output) {
+        output.putInt("time", timeRemaining);
+        super.saveAdditional(output);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider provider) {
-        timeRemaining = tag.getInt("time");
-        super.loadAdditional(tag, provider);
+    protected void loadAdditional(ValueInput input) {
+        timeRemaining = input.getIntOr("time", 0);
+        super.loadAdditional(input);
     }
 }

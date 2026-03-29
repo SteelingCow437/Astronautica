@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -18,10 +18,12 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +36,7 @@ public class OrbitalTNTCoreBlock extends Block {
         this.registerDefaultState(this.defaultBlockState().setValue(FACING, Direction.NORTH));
     }
 
-    public static final DirectionProperty FACING = DirectionProperty.create("facing");
+    public static final EnumProperty<Direction> FACING = HorizontalDirectionalBlock.FACING;
     private BlockPos worldPosition;
 
     @Nullable
@@ -72,12 +74,12 @@ public class OrbitalTNTCoreBlock extends Block {
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
-        if(level.getBlockState(neighborPos).getBlock() == Blocks.AIR) {
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @org.jspecify.annotations.Nullable Orientation orientation, boolean movedByPiston) {
+        if(block == Blocks.AIR) {
             level.scheduleTick(pos, this, 1);
         }
-        if(level.getBlockState(neighborPos).getBlock() == ModBlocks.ORBITAL_TNT_SLAVE.get()) {
-            if(!level.getBlockState(neighborPos).getValue(HAS_MASTER)) {
+        if(block == ModBlocks.ORBITAL_TNT_SLAVE.get()) {
+            if(!level.getBlockState(pos).getValue(HAS_MASTER)) {
                 sync(level, pos, state);
             }
         }
@@ -121,17 +123,17 @@ public class OrbitalTNTCoreBlock extends Block {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if(!level.isClientSide()) {
             if(stack.getItem() == ModItems.ORBITAL_TNT_SHELL.get() && stack.getCount() >= 1) {
                 ItemStack marker = new ItemStack(ModItems.ORBITAL_MARKER.get(), 1);
                 marker.set(ModDataStorage.LINKED_ORBITAL_CORE, pos);
                 player.addItem(marker);
                 stack.shrink(1);
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
         }
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
 }

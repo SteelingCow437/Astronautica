@@ -6,10 +6,11 @@ import com.astronautica.data.ModDataStorage;
 import com.astronautica.item.ModItems;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -48,14 +49,11 @@ public class StarGateCoreBlock extends BaseEntityBlock {
         return this.defaultBlockState();
     }
 
-    private int x = 0;
-    private int y = 0;
-    private int z = 0;
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         BlockEntity entity = level.getBlockEntity(pos);
         Item item = stack.getItem();
-        if(!level.isClientSide) {
+        if(!level.isClientSide()) {
         if(entity instanceof StarGateCoreBlockEntity) {
             if (item == ModItems.STARGATE_CONTROLLER.get() && !((StarGateCoreBlockEntity) entity).ACTIVE) {
                 if (((StarGateCoreBlockEntity) entity).checkForCompletion(player)) {
@@ -72,11 +70,11 @@ public class StarGateCoreBlock extends BaseEntityBlock {
             }
         }
         }
-        return ItemInteractionResult.FAIL;
+        return InteractionResult.FAIL;
     }
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
         BlockEntity entity = level.getBlockEntity(pos);
         if(entity instanceof StarGateCoreBlockEntity) {
             ((StarGateCoreBlockEntity) entity).breakPortalOnDirection();

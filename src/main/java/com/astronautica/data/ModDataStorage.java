@@ -4,6 +4,7 @@ import com.astronautica.Astronautica;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
@@ -15,8 +16,7 @@ import java.util.function.UnaryOperator;
 public class ModDataStorage {
 
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES =
-            DeferredRegister.createDataComponents(Astronautica.MOD_ID);
-
+            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, Astronautica.MOD_ID);
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> LINKED_ORBITAL_CORE = register("linked_orbital_core",
             builder -> builder.persistent(BlockPos.CODEC));

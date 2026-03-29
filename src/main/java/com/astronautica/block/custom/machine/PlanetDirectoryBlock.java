@@ -9,7 +9,6 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -61,18 +60,13 @@ public class PlanetDirectoryBlock extends BaseEntityBlock {
     public int selectedPlanet = 0;
 
     @Override
-    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        super.onRemove(state, level, pos, newState, isMoving);
-    }
-
-    @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
             entity = level.getBlockEntity(pos);
             Item item = stack.getItem();
             if (entity instanceof PlanetDirectoryBlockEntity) {
                 if (item instanceof PlanetKeyItem) {
                     ((PlanetDirectoryBlockEntity) entity).unlockPlanet(((PlanetKeyItem) item).getDestination());
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 }
                 if (item instanceof SpaceSuitChestplateItem || item instanceof Z7ChestplateItem) {
                     try {
@@ -81,13 +75,13 @@ public class PlanetDirectoryBlock extends BaseEntityBlock {
                         ((Z7ChestplateItem) item).selectedPlanet = ((PlanetDirectoryBlockEntity) entity).getSelectedPlanet();
                     }
                     stack.set(ModDataStorage.SELECTED_PLANET, ((PlanetDirectoryBlockEntity) entity).getSelectedPlanet());
-                    return ItemInteractionResult.SUCCESS;
+                    return InteractionResult.SUCCESS;
                 } else {
                     use(state, level, pos, player);
                 }
-                return ItemInteractionResult.SUCCESS;
+                return InteractionResult.SUCCESS;
             }
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
     }
 
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player) {

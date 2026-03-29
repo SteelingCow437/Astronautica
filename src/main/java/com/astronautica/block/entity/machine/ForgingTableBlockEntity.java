@@ -4,12 +4,11 @@ import com.astronautica.block.entity.ModBlockEntities;
 import com.astronautica.item.ModItems;
 import com.astronautica.util.ModLists;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +18,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 
 public class ForgingTableBlockEntity extends BlockEntity {
@@ -57,7 +58,7 @@ public class ForgingTableBlockEntity extends BlockEntity {
     }
 
     public void craft(Player player) {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             if (ingredient != null) {
                 if (stamp == ModItems.PLATE_STAMP.get()) {
                     switch (ModLists.FORGING_TABLE_INGREDIENT_LIST.indexOf(ingredient.getItem())) {
@@ -115,7 +116,7 @@ public class ForgingTableBlockEntity extends BlockEntity {
     }
 
     public void addIngredient(Player player, InteractionHand hand) {
-        if(level != null && !level.isClientSide) {
+        if(level != null && !level.isClientSide()) {
             ItemStack stack = player.getItemInHand(hand);
             if (ModLists.FORGING_TABLE_INGREDIENT_LIST.contains(stack.getItem())) {
                 if (ingredient == null || ingredient == ItemStack.EMPTY) {
@@ -132,7 +133,7 @@ public class ForgingTableBlockEntity extends BlockEntity {
     }
 
     public void setStamp(Item item, Player player, InteractionHand hand) {
-        if(level != null && !level.isClientSide) {
+        if(level != null && !level.isClientSide()) {
             if (ModLists.FORGING_TABLE_STAMP_LIST.contains(item)) {
                 if (stamp != null) {
                     player.addItem(new ItemStack(stamp, 1));
@@ -145,7 +146,7 @@ public class ForgingTableBlockEntity extends BlockEntity {
     }
 
     public void removeItem(Player player) {
-        if(!player.level().isClientSide) {
+        if(!player.level().isClientSide()) {
             if(ingredient != null) {
                 player.addItem(ingredient);
                 ingredient = null;
@@ -158,30 +159,31 @@ public class ForgingTableBlockEntity extends BlockEntity {
             setChanged();
         }
     }
+
     @Override
-    public void saveAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
+    public void saveAdditional(ValueOutput output) {
         if(ModLists.FORGING_TABLE_STAMP_LIST.indexOf(stamp) != 0) {
-            nbt.putInt("stamp_type", ModLists.FORGING_TABLE_STAMP_LIST.indexOf(stamp));
+            output.putInt("stamp_type", ModLists.FORGING_TABLE_STAMP_LIST.indexOf(stamp));
         }
         if(!ingredient.isEmpty()) {
-            nbt.putInt("ingredient", ModLists.FORGING_TABLE_INGREDIENT_LIST.indexOf(ingredient.getItem()));
+            output.putInt("ingredient", ModLists.FORGING_TABLE_INGREDIENT_LIST.indexOf(ingredient.getItem()));
         }
         if(ingredient.getCount() > 0) {
-            nbt.putInt("ingredient_count", ingredient.getCount());
+            output.putInt("ingredient_count", ingredient.getCount());
         }
-        super.saveAdditional(nbt, provider);
+        super.saveAdditional(output);
     }
 
     @Override
-    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider provider) {
-        switch(nbt.getInt("stamp_type")) {
+    public void loadAdditional(ValueInput input) {
+        switch(input.getInt("stamp_type")) {
             case 0 -> stamp = null;
             case 1 -> stamp = ModItems.PLATE_STAMP.get();
             case 2 -> stamp = ModItems.WIRE_STAMP.get();
             case 3 -> stamp = ModItems.INGOT_STAMP.get();
         }
-        Item tempItem = null;
-        switch(nbt.getInt("ingredient")) {
+        Item tempItem;
+        switch(input.getInt("ingredient")) {
             case 0 -> tempItem = Items.IRON_INGOT;
             case 1 -> tempItem = Items.COPPER_INGOT;
             case 2 -> tempItem = ModItems.TITANIUM_INGOT.get();
@@ -195,11 +197,12 @@ public class ForgingTableBlockEntity extends BlockEntity {
             case 10 -> tempItem = ModItems.STEEL_PLATE.get();
             case 11 -> tempItem = ModItems.BRONZE_PLATE.get();
             case 12 -> tempItem = ModItems.TITAN_STEEL_PLATE.get();
+            default -> tempItem = null;
         }
         if(tempItem != null) {
-            ingredient = new ItemStack(tempItem, nbt.getInt("ingredient_count"));
+            ingredient = new ItemStack(tempItem, input.getInt("ingredient_count").get());
         }
-        super.loadAdditional(nbt, provider);
+        super.loadAdditional(input);
     }
 
     public int getStamp() {
@@ -223,7 +226,7 @@ public class ForgingTableBlockEntity extends BlockEntity {
     }
 
     public void removeRenderItem() {
-        renderItem.kill();
+        renderItem.remove(Entity.RemovalReason.DISCARDED);
     }
 
     public void drops(Level level, BlockPos pos) {

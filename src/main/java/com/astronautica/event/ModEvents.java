@@ -9,7 +9,6 @@ import com.astronautica.item.custom.armor.Z7ChestplateItem;
 import com.astronautica.util.ModAttributeModifiers;
 import com.astronautica.util.ModLists;
 import com.astronautica.world.dimension.ModDimensions;
-import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;

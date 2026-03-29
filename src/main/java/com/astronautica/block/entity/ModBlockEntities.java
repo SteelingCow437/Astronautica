@@ -7,48 +7,52 @@ import com.astronautica.block.entity.machine.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Supplier;
 
 public class ModBlockEntities {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Astronautica.MOD_ID);
     //Machine
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE =
+
+    public static final Supplier<BlockEntityType<ForgingTableBlockEntity>> FORGING_TABLE =
             BLOCK_ENTITIES.register("forging_table", () ->
-                    BlockEntityType.Builder.of(ForgingTableBlockEntity::new,
-                            ModBlocks.FORGING_TABLE.get()).build(null));
+                    new BlockEntityType<>(ForgingTableBlockEntity::new, false,
+                            ModBlocks.FORGING_TABLE.get()));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AirMachineBlockEntity>> AIR_MACHINE =
+    public static final Supplier<BlockEntityType<AirMachineBlockEntity>> AIR_MACHINE =
             BLOCK_ENTITIES.register("air_machine", () ->
-                    BlockEntityType.Builder.of(AirMachineBlockEntity::new,
-                            ModBlocks.AIR_MACHINE.get()).build(null));
+                    new BlockEntityType<>(AirMachineBlockEntity::new,
+                            ModBlocks.AIR_MACHINE.get()));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<UnAlloyMachineBlockEntity>> UN_ALLOY_MACHINE =
+    public static final Supplier<BlockEntityType<UnAlloyMachineBlockEntity>> UN_ALLOY_MACHINE =
             BLOCK_ENTITIES.register("un_alloy_machine", () ->
-                    BlockEntityType.Builder.of(UnAlloyMachineBlockEntity::new,
-                            ModBlocks.ALLOY_REVERSAL_MACHINE.get()).build(null));
+                    new BlockEntityType<>(UnAlloyMachineBlockEntity::new,
+                            ModBlocks.ALLOY_REVERSAL_MACHINE.get()));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PlanetDirectoryBlockEntity>> PLANET_DIRECTORY =
+    public static final Supplier<BlockEntityType<PlanetDirectoryBlockEntity>> PLANET_DIRECTORY =
             BLOCK_ENTITIES.register("planet_directory", () ->
-                    BlockEntityType.Builder.of(PlanetDirectoryBlockEntity::new,
-                            ModBlocks.PLANET_DIRECTORY.get()).build(null));
+                    new BlockEntityType<>(PlanetDirectoryBlockEntity::new,
+                            ModBlocks.PLANET_DIRECTORY.get()));
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WarpDriveBlockEntity>> WARP_DRIVE =
+    public static final Supplier<BlockEntityType<WarpDriveBlockEntity>> WARP_DRIVE =
             BLOCK_ENTITIES.register("warp_drive", () ->
-                    BlockEntityType.Builder.of(WarpDriveBlockEntity::new,
-                            ModBlocks.WARP_DRIVE.get()).build(null));
+                    new BlockEntityType<>(WarpDriveBlockEntity::new,
+                            ModBlocks.WARP_DRIVE.get()));
+
     //Fluid container blocks
+    //I really gotta get rid of this
      /*public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<BasicFluidBarrelBlockEntity>> IRON_BARREL =
             BLOCK_ENTITIES.register("basic_fluid_barrel", () -> //what a mouthful
                     BlockEntityType.Builder.of(BasicFluidBarrelBlockEntity::new,
                             ModBlocks.IRON_BARREL.get()).build(null)); */
 
     //StarGate Core
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StarGateCoreBlockEntity>> STARGATE_CORE =
+    public static final Supplier<BlockEntityType<StarGateCoreBlockEntity>> STARGATE_CORE =
             BLOCK_ENTITIES.register("stargate_core", () ->
-                    BlockEntityType.Builder.of(StarGateCoreBlockEntity::new,
-                            ModBlocks.STARGATE_CORE.get()).build(null));
+                    new BlockEntityType<>(StarGateCoreBlockEntity::new,
+                            ModBlocks.STARGATE_CORE.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

@@ -173,6 +173,6 @@ public class ModBlocks {
 
     //Air blocks / miscellaneous
     public static final DeferredBlock<Block> SPACE_AIR = registerBlock("space_air",
-            () -> new SpaceAirBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AIR).replaceable().noCollission().noLootTable().air()));
+            () -> new SpaceAirBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AIR).replaceable().noCollision().noLootTable().air()));
 
 }

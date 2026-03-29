@@ -8,7 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -19,8 +18,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +30,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
 
     public static final MapCodec<ForgingTableBlock> CODEC = simpleCodec(ForgingTableBlock::new);
 
-    public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
     private int stampNumber = 0;
 
@@ -73,7 +73,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
     @Override
     public InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult result) {
         BlockEntity entity = level.getBlockEntity(pos);
-        if(entity instanceof ForgingTableBlockEntity && !level.isClientSide) {
+        if(entity instanceof ForgingTableBlockEntity && !level.isClientSide()) {
             if(player.isShiftKeyDown()) {
                 ((ForgingTableBlockEntity) entity).removeItem(player);
             }
@@ -84,9 +84,9 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    public InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
         BlockEntity entity = level.getBlockEntity(pos);
-        if(entity instanceof ForgingTableBlockEntity && !level.isClientSide) {
+        if(entity instanceof ForgingTableBlockEntity && !level.isClientSide()) {
             if(player.getMainHandItem().getItem() == ModItems.HAMMER.get()) {
                 ((ForgingTableBlockEntity) entity).craft(player);
             }
@@ -106,6 +106,21 @@ public class ForgingTableBlock extends BaseEntityBlock {
     }
 
     @Override
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, ItemStack toolStack, boolean willHarvest, FluidState fluid) {
+        if(!level.isClientSide()) {
+            if(level.getBlockEntity(pos) instanceof ForgingTableBlockEntity entity) {
+                if(level instanceof ServerLevel && !level.isClientSide()) {
+                    entity.drops(level, pos);
+                    entity.removeRenderItem();
+                }
+                return super.onDestroyedByPlayer(state, level, pos, player, toolStack, willHarvest, fluid);
+            }
+        }
+        return super.onDestroyedByPlayer(state, level, pos, player, toolStack, willHarvest, fluid);
+    }
+
+    /*
+    @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         if(state.getBlock() != newState.getBlock() && !level.isClientSide()) {
             if(level.getBlockEntity(pos) instanceof ForgingTableBlockEntity entity) {
@@ -120,6 +135,7 @@ public class ForgingTableBlock extends BaseEntityBlock {
             }
         }
     }
+     */
 
     @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {

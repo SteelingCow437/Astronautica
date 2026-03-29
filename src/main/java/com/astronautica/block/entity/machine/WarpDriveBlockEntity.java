@@ -4,12 +4,11 @@ import com.astronautica.block.entity.ModBlockEntities;
 import com.astronautica.util.ModLists;
 import com.astronautica.util.ShipPart;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Vec3i;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +19,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
 
 import javax.annotation.Nullable;
@@ -58,7 +59,7 @@ public class WarpDriveBlockEntity extends BlockEntity {
     private boolean warping = false;
     private ShipPart sp;
     private Vec3i newPlayerPos;
-    private MobEffectInstance resist = new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 999999, 9, false, false, false);
+    private MobEffectInstance resist = new MobEffectInstance(MobEffects.RESISTANCE, 999999, 9, false, false, false);
     private MobEffectInstance invis = new MobEffectInstance(MobEffects.INVISIBILITY, 999999, 9, false, false, false);
 
     private ArrayList<ShipPart> SHIP_PARTS = new ArrayList<ShipPart>(
@@ -215,22 +216,24 @@ public class WarpDriveBlockEntity extends BlockEntity {
         }
     }
 
+
+
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        tag.putInt("size_x", shipSizeX);
-        tag.putInt("size_y", shipSizeY);
-        tag.putInt("size_z", shipSizeZ);
-        tag.putInt("direction", direction);
+    protected void saveAdditional(ValueOutput output) {
+        super.saveAdditional(output);
+        output.putInt("size_x", shipSizeX);
+        output.putInt("size_y", shipSizeY);
+        output.putInt("size_z", shipSizeZ);
+        output.putInt("direction", direction);
     }
 
     @Override
-    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        shipSizeX = tag.getInt("size_x");
-        shipSizeY = tag.getInt("size_y");
-        shipSizeZ = tag.getInt("size_z");
-        direction = tag.getInt("direction");
+    protected void loadAdditional(ValueInput input) {
+        super.loadAdditional(input);
+        shipSizeX = input.getIntOr("size_x", 0);
+        shipSizeY = input.getIntOr("size_y", 0);
+        shipSizeZ = input.getIntOr("size_z", 0);
+        direction = input.getIntOr("direction", 0);
     }
 
     public static void tick(Level level, BlockPos pos, BlockState state, WarpDriveBlockEntity entity) {
@@ -243,7 +246,7 @@ public class WarpDriveBlockEntity extends BlockEntity {
                     level.setBlock(entity.sp.getOldPos(), Blocks.AIR.defaultBlockState(), 2);
                     if(ModLists.WARP_DRIVE_EXCLUSION_LIST.contains(entity.sp.getBlock().getBlock()) && entity.sp.getBlock().getBlock() != Blocks.AIR) {
                         for(ItemEntity item : level.getEntitiesOfClass(ItemEntity.class, entity.bounds)) {
-                            item.kill();
+                            item.remove(Entity.RemovalReason.DISCARDED);
                         }
                     }
                 }

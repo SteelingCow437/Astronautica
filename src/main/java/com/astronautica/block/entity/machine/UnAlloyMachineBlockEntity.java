@@ -30,13 +30,13 @@ public class UnAlloyMachineBlockEntity extends BlockEntity {
 
     private Random random = new Random();
 
-    public void use(Player player, ItemStack input, InteractionHand hand) {
-        if(input.getBurnTime(RecipeType.SMELTING) > 0) {
+    public void use(Player player, ItemStack input, InteractionHand hand, Level level) {
+        if(input.getBurnTime(RecipeType.SMELTING, level.fuelValues()) > 0) {
             ItemStack fuel = new ItemStack(player.getItemInHand(hand).getItem(), 1);
-            fuelTime += fuel.getBurnTime(RecipeType.SMELTING);
+            fuelTime += fuel.getBurnTime(RecipeType.SMELTING, level.fuelValues());
             level.playSound(player, worldPosition, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 2.0f, 2.0f);
-            if(!fuel.getCraftingRemainingItem().isEmpty()) {
-                player.addItem(fuel.getCraftingRemainingItem());
+            if(fuel.getCraftingRemainder().item() != null) {
+                player.addItem(new ItemStack(fuel.getCraftingRemainder().item(), fuel.count()));
             }
             player.getItemInHand(hand).shrink(1);
             setChanged();
