@@ -2,7 +2,7 @@ package com.astronautica.sound;
 
 import com.astronautica.Astronautica;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -15,7 +15,7 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> CANNED_BREAD = registerSoundEvent("canned_bread");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, name);
+        Identifier id = Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, name);
         return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(id));
     }
 

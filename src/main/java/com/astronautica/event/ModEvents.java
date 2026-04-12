@@ -11,8 +11,8 @@ import com.astronautica.util.ModLists;
 import com.astronautica.world.dimension.ModDimensions;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerLevel;
@@ -45,7 +45,7 @@ public class ModEvents {
     }
 
     private static void registerDimEffects(RegisterDimensionSpecialEffectsEvent event) {
-        event.register(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
+        event.register(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
     }
 
     @EventBusSubscriber(modid = Astronautica.MOD_ID)
@@ -57,7 +57,7 @@ public class ModEvents {
 
         @SubscribeEvent
         public static void onEntityTick(EntityTickEvent.Pre event) {
-            if(!event.getEntity().level().isClientSide) {
+            if(!event.getEntity().level().isClientSide()) {
                 if(event.getEntity() instanceof LivingEntity) {
                     handleFalls((LivingEntity) event.getEntity(), event.getEntity().level().dimension());
                     if (event.getEntity().getY() >= 50000) {
@@ -88,7 +88,7 @@ public class ModEvents {
         }
 
         private static @Nullable ServerLevel getServerLevel(EntityTickEvent.Pre event, Item item) {
-            MinecraftServer server = event.getEntity().getServer();
+            MinecraftServer server = event.getEntity().level().getServer();
             ResourceKey<Level> selectedPlanet;
             try {
                 selectedPlanet = ((SpaceSuitChestplateItem) item).getSelectedPlanet();
@@ -144,7 +144,7 @@ public class ModEvents {
         private static void giveDeathAdvancement(ServerPlayer player) {
             if(player != null) {
                 PlayerAdvancements advancements = player.getAdvancements();
-                AdvancementHolder death = player.server.getAdvancements().get(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "astronautica/die_on_moon"));
+                AdvancementHolder death = player.level().getServer().getAdvancements().get(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "astronautica/die_on_moon"));
                 if(death != null) {
                     advancements.getOrStartProgress(death);
                     advancements.award(death, "die");

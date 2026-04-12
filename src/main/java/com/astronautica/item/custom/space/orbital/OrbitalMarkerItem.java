@@ -8,20 +8,23 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.LargeFireball;
+import net.minecraft.world.entity.projectile.hurtingprojectile.LargeFireball;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import org.jspecify.annotations.Nullable;
 
-import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class OrbitalMarkerItem extends Item {
 
@@ -44,22 +47,24 @@ public class OrbitalMarkerItem extends Item {
                 .fireResistant());
     }
 
+
+
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        if (!level.isClientSide) {
-            player.getCooldowns().addCooldown(this, 60);
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
+        if (!level.isClientSide()) {
+            player.getCooldowns().addCooldown(player.getItemBySlot(usedHand.asEquipmentSlot()), 60);
             MinecraftServer server = level.getServer();
             ServerLevel moon;
             try {
                 moon = server.getLevel(ModDimensions.MOON);
             } catch (NullPointerException exception) {
-                return InteractionResultHolder.fail(player.getMainHandItem());
+                return InteractionResult.FAIL;
             }
             ItemStack stack = player.getItemInHand(usedHand);
             BlockPos dropPos = player.getOnPos();
             BlockPos pos = stack.get(ModDataStorage.LINKED_ORBITAL_CORE);
             Block block = moon.getBlockState(pos).getBlock();
-            if (!moon.isClientSide && !player.level().isClientSide) {
+            if (!moon.isClientSide() && !player.level().isClientSide()) {
                 switch (ModLists.ORBITAL_CORES.indexOf(block)) {
                     case 0 -> orbitalTntCannon(moon, pos, block, dropPos, player, usedHand);
 
@@ -68,9 +73,9 @@ public class OrbitalMarkerItem extends Item {
                     default -> player.sendSystemMessage(Component.literal("Cannon core is missing!"));
                 }
             }
-            return InteractionResultHolder.success(player.getMainHandItem());
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResultHolder.fail(player.getMainHandItem());
+        return InteractionResult.FAIL;
     }
 
     private void orbitalTntCannon(ServerLevel level, BlockPos pos, Block block, BlockPos dropPos, Player player, InteractionHand usedHand) {
@@ -84,8 +89,8 @@ public class OrbitalMarkerItem extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        if(!level.isClientSide) {
+    public void inventoryTick(ItemStack stack, ServerLevel level, Entity owner, @Nullable EquipmentSlot slot) {
+        if(!level.isClientSide()) {
             textLevel = level;
             ++timer;
             if (timer >= 20) {
@@ -144,7 +149,7 @@ public class OrbitalMarkerItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
-        list.add(Component.literal("Linked to: " + getCannonName(stack)));
+    public void appendHoverText(ItemStack itemStack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag tooltipFlag) {
+        builder.accept(Component.literal("Linked to: " + getCannonName(itemStack)));
     }
 }

@@ -176,14 +176,14 @@ public class ForgingTableBlockEntity extends BlockEntity {
 
     @Override
     public void loadAdditional(ValueInput input) {
-        switch(input.getInt("stamp_type")) {
+        switch(input.getIntOr("stamp_type", 0)) {
             case 0 -> stamp = null;
             case 1 -> stamp = ModItems.PLATE_STAMP.get();
             case 2 -> stamp = ModItems.WIRE_STAMP.get();
             case 3 -> stamp = ModItems.INGOT_STAMP.get();
         }
         Item tempItem;
-        switch(input.getInt("ingredient")) {
+        switch(input.getIntOr("ingredient", 0)) {
             case 0 -> tempItem = Items.IRON_INGOT;
             case 1 -> tempItem = Items.COPPER_INGOT;
             case 2 -> tempItem = ModItems.TITANIUM_INGOT.get();

@@ -1,115 +1,44 @@
 package com.astronautica.item;
 
 import com.astronautica.Astronautica;
-import net.minecraft.Util;
-import net.minecraft.core.Holder;
+import com.astronautica.util.ModTags;
+import com.google.common.collect.Maps;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
+import net.minecraft.world.item.equipment.EquipmentAsset;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.Map;
 
-public class ModArmorMaterials {
+public interface ModArmorMaterials {
 
-    public static final Holder<ArmorMaterial> TITANIUM = register("titanium", Util.make(new EnumMap<>(ArmorItem.Type.class), health -> {
-        health.put(ArmorItem.Type.BOOTS, 3);
-        health.put(ArmorItem.Type.LEGGINGS, 5);
-        health.put(ArmorItem.Type.CHESTPLATE, 7);
-        health.put(ArmorItem.Type.HELMET, 3);
-        health.put(ArmorItem.Type.BODY, 6);
-    }), 25, SoundEvents.ARMOR_EQUIP_IRON, 1.0F, 0.1F, () -> Ingredient.of(ModItems.TITANIUM_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "titanium"))));
+    ArmorMaterial TITANIUM = new ArmorMaterial(22, makeDefense(3, 5, 7, 3, 6), 25, SoundEvents.ARMOR_EQUIP_IRON, 1.0f, 0.1f, ModTags.ModItemTags.REPAIRS_TITANIUM, ModArmorAssets.TITANIUM);
 
-    public static final Holder<ArmorMaterial> COPPER = register("copper", Util.make(new EnumMap<>(ArmorItem.Type.class), health -> {
-        health.put(ArmorItem.Type.BOOTS, 1);
-        health.put(ArmorItem.Type.LEGGINGS, 4);
-        health.put(ArmorItem.Type.CHESTPLATE, 5);
-        health.put(ArmorItem.Type.HELMET, 2);
-        health.put(ArmorItem.Type.BODY, 4);
-    }), 29, SoundEvents.ARMOR_EQUIP_GOLD, 0.0F, 0.0F,
-            () -> Ingredient.of(Items.COPPER_INGOT),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "copper"))));
-                    //new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(astronautica.MOD_ID, "copper"), "_overlay", false))); It's not dyeable
+    ArmorMaterial TURTLE = new ArmorMaterial(45, makeDefense(4, 7, 9, 4, 8), 100, SoundEvents.ARMOR_EQUIP_TURTLE, 2.0f, 1.0f, ModTags.ModItemTags.REPAIRS_TURTLE, ModArmorAssets.TURTLE);
 
-    public static final Holder<ArmorMaterial> TURTLE = register("turtle", Util.make(new EnumMap<>(ArmorItem.Type.class), health -> {
-        health.put(ArmorItem.Type.BOOTS, 4);
-        health.put(ArmorItem.Type.LEGGINGS, 7);
-        health.put(ArmorItem.Type.CHESTPLATE, 9);
-        health.put(ArmorItem.Type.HELMET, 4);
-        health.put(ArmorItem.Type.BODY, 8);
-    }), 100, SoundEvents.ARMOR_EQUIP_TURTLE, 2.0F, 0.25F, () -> Ingredient.of(Items.TURTLE_HELMET),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "turtle"))));
+    ArmorMaterial SPACESUIT = new ArmorMaterial(22, makeDefense(4, 6, 8, 4, 7), 40, SoundEvents.ARMOR_EQUIP_IRON, 1.2f, 0.1f, ModTags.ModItemTags.REPAIRS_SPACESUIT, ModArmorAssets.SPACESUIT);
 
-    public static final Holder<ArmorMaterial> SPACESUIT = register("spacesuit", Util.make(new EnumMap<>(ArmorItem.Type.class), health -> {
-        health.put(ArmorItem.Type.BOOTS, 4);
-        health.put(ArmorItem.Type.LEGGINGS, 7);
-        health.put(ArmorItem.Type.CHESTPLATE, 8);
-        health.put(ArmorItem.Type.HELMET, 4);
-        health.put(ArmorItem.Type.BODY, 7);
-    }), 40, SoundEvents.ARMOR_EQUIP_IRON, 1.2F, 0.1F, () -> Ingredient.of(ModItems.TITAN_STEEL_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "spacesuit"))));
+    ArmorMaterial Z7 = new ArmorMaterial(22, makeDefense(5, 8, 10, 5, 8), 50, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.5f, 0.25f, ModTags.ModItemTags.REPAIRS_Z7, ModArmorAssets.Z7);
 
-    public static final Holder<ArmorMaterial> RESONATOR = register("resonator", Util.make(new EnumMap<>(ArmorItem.Type.class), health -> {
-                health.put(ArmorItem.Type.BOOTS, 0);
-                health.put(ArmorItem.Type.LEGGINGS, 0);
-                health.put(ArmorItem.Type.CHESTPLATE, 4);
-                health.put(ArmorItem.Type.HELMET, 0);
-                health.put(ArmorItem.Type.BODY, 0);
-            }), 40, SoundEvents.ARMOR_EQUIP_NETHERITE, 0.0F, 0.0F, () -> Ingredient.of(ModItems.AQUAMARINE_RESONATOR.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "resonator"))));
+    ArmorMaterial RESONATOR = new ArmorMaterial(22, makeDefense(0, 0, 4, 0, 0), 40, SoundEvents.ARMOR_EQUIP_NETHERITE, 0.0f, 0.0f, ModTags.ModItemTags.REPAIRS_RESONATOR, ModArmorAssets.RESONATOR);
 
-    public static final Holder<ArmorMaterial> Z7 = register("z7", Util.make(new EnumMap<>(ArmorItem.Type.class), health -> {
-                health.put(ArmorItem.Type.BOOTS, 5);
-                health.put(ArmorItem.Type.LEGGINGS, 8);
-                health.put(ArmorItem.Type.CHESTPLATE, 10);
-                health.put(ArmorItem.Type.HELMET, 5);
-                health.put(ArmorItem.Type.BODY, 8);
-            }), 50, SoundEvents.ARMOR_EQUIP_NETHERITE, 2.5F, 0.25f, () -> Ingredient.of(ModItems.BYZANIUM_INGOT.get()),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "z7"))));
-
-
-
-    private static Holder<ArmorMaterial> register(
-            String name,
-            EnumMap<ArmorItem.Type, Integer> defense,
-            int enchantmentValue,
-            Holder<SoundEvent> equipSound,
-            float toughness,
-            float knockbackResistance,
-            Supplier<Ingredient> repairIngredient
-    ) {
-        List<ArmorMaterial.Layer> list = List.of(new ArmorMaterial.Layer(ResourceLocation.withDefaultNamespace(name)));
-        return register(name, defense, enchantmentValue, equipSound, toughness, knockbackResistance, repairIngredient, list);
+    private static Map<ArmorType, Integer> makeDefense(int boots, int legs, int chest, int helm, int body) {
+        return Maps.newEnumMap(Map.of(ArmorType.BOOTS, boots, ArmorType.LEGGINGS, legs, ArmorType.CHESTPLATE, chest, ArmorType.HELMET, helm, ArmorType.BODY, body));
     }
 
-    private static Holder<ArmorMaterial> register(
-            String name,
-            EnumMap<ArmorItem.Type, Integer> defense,
-            int enchantmentValue,
-            Holder<SoundEvent> equipSound,
-            float toughness,
-            float knockbackResistance,
-            Supplier<Ingredient> repairIngridient,
-            List<ArmorMaterial.Layer> layers
-    ) {
-        EnumMap<ArmorItem.Type, Integer> enummap = new EnumMap<>(ArmorItem.Type.class);
+    interface ModArmorAssets {
+        ResourceKey<? extends Registry<EquipmentAsset>> ROOT_ID = ResourceKey.createRegistryKey(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "equipment_asset"));
+        ResourceKey<EquipmentAsset> TITANIUM = createId("titanium");
+        ResourceKey<EquipmentAsset> SPACESUIT = createId("spacesuit");
+        ResourceKey<EquipmentAsset> TURTLE = createId("turtle");
+        ResourceKey<EquipmentAsset> Z7 = createId("z7");
+        ResourceKey<EquipmentAsset> RESONATOR = createId("resonator");
 
-        for (ArmorItem.Type armoritem$type : ArmorItem.Type.values()) {
-            enummap.put(armoritem$type, defense.get(armoritem$type));
+        static ResourceKey<EquipmentAsset> createId(String name) {
+            return ResourceKey.create(ROOT_ID, Identifier.withDefaultNamespace(name));
         }
-
-        return Registry.registerForHolder(
-                BuiltInRegistries.ARMOR_MATERIAL,
-                ResourceLocation.withDefaultNamespace(name),
-                new ArmorMaterial(enummap, enchantmentValue, equipSound, repairIngridient, layers, toughness, knockbackResistance)
-        );
     }
 }

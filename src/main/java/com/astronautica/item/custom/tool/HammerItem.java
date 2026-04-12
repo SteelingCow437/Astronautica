@@ -8,11 +8,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class HammerItem extends Item {
     public HammerItem() {
@@ -29,7 +30,7 @@ public class HammerItem extends Item {
         Block block = level.getBlockState(pos).getBlock();
         ItemStack offhand = player.getOffhandItem();
         Item item = offhand.getItem();
-        if(!level.isClientSide) {
+        if(!level.isClientSide()) {
             if(block == ModBlocks.FORGING_TABLE.get() && player.isShiftKeyDown()) {
                 switch(ModLists.HAMMER_INGREDIENT_LIST.indexOf(item)) {
                     case 0 -> {player.addItem(ModItems.IRON_POWDER.get().getDefaultInstance()); offhand.shrink(1); return InteractionResult.SUCCESS;}
@@ -51,13 +52,13 @@ public class HammerItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag tooltipFlag) {
-        if(tooltipFlag.hasShiftDown()) {
-            list.add(Component.literal("Use this to make wires and stamps on a Forging Table."
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
+        if(flag.hasShiftDown()) {
+            builder.accept(Component.literal("Use this to make wires and stamps on a Forging Table."
             + "\nAlternatively, shift-right-click on a Forging Table with an ingot in your offhand to powderize it!"));
         }
         else {
-            list.add(Component.literal("Hold [SHIFT] for help!"));
+            builder.accept(Component.literal("Hold [SHIFT] for help!"));
         }
     }
 }

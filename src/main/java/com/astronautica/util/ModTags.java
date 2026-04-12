@@ -26,9 +26,15 @@ public class ModTags {
             return ItemTags.create(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, name));
         }
 
-        public static TagKey<Item> forgeTag(String name) {
+        public static TagKey<Item> neoForgeTag(String name) {
             return ItemTags.create(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, name));
         }
         //item tags here
+        public static final TagKey<Item> REPAIRS_TITANIUM = tag("repairs_titanium");
+        public static final TagKey<Item> REPAIRS_TURTLE = tag("repairs_turtle");
+        public static final TagKey<Item> REPAIRS_SPACESUIT = tag("repairs_spacesuit");
+        public static final TagKey<Item> REPAIRS_Z7 = tag("repairs_z7");
+        public static final TagKey<Item> REPAIRS_RESONATOR = tag("repairs_resonator");
+
     }
 }

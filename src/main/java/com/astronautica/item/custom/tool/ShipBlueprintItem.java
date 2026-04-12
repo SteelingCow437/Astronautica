@@ -8,12 +8,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class ShipBlueprintItem extends Item {
     public ShipBlueprintItem() {
@@ -25,7 +26,7 @@ public class ShipBlueprintItem extends Item {
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockEntity entity = level.getBlockEntity(context.getClickedPos());
-        if (entity instanceof SignBlockEntity && !level.isClientSide) {
+        if (entity instanceof SignBlockEntity && !level.isClientSide()) {
             String messageX = ((SignBlockEntity) entity).getFrontText().getMessage(0, false).getString();
             String messageY = ((SignBlockEntity) entity).getFrontText().getMessage(1, false).getString();
             String messageZ = ((SignBlockEntity) entity).getFrontText().getMessage(2, false).getString();
@@ -37,7 +38,7 @@ public class ShipBlueprintItem extends Item {
             }
             return InteractionResult.SUCCESS;
         }
-        else if(entity instanceof WarpDriveBlockEntity && !level.isClientSide) {
+        else if(entity instanceof WarpDriveBlockEntity && !level.isClientSide()) {
             int sizeX = context.getItemInHand().get(ModDataStorage.SHIP_SIZE).getX();
             int sizeY = context.getItemInHand().get(ModDataStorage.SHIP_SIZE).getY();
             int sizeZ = context.getItemInHand().get(ModDataStorage.SHIP_SIZE).getZ();
@@ -48,7 +49,7 @@ public class ShipBlueprintItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
         if(!flag.hasShiftDown()) {
             int x;
             int y;
@@ -62,13 +63,13 @@ public class ShipBlueprintItem extends Item {
                 y = 0;
                 z = 0;
             }
-            list.add(Component.literal("Ship Dimensions: " + x + ", " + y + ", " + z).append("\n")
+            builder.accept(Component.literal("Ship Dimensions: " + x + ", " + y + ", " + z).append("\n")
                     .append("Hold [SHIFT] for help!"));
         }
         else {
-            list.add(Component.literal("Click this on a sign with the X, Y, and Z radii on separate lines " +
+            builder.accept(Component.literal("Click this on a sign with the X, Y, and Z radii on separate lines " +
                     "(in that order) to save the size, then click on a Warp Drive to tell it the size of the ship."));
         }
-        super.appendHoverText(stack, context, list, flag);
+        super.appendHoverText(stack, context, display, builder, flag);
     }
 }

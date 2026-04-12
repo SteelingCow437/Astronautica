@@ -7,18 +7,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class StarGateControllerItem extends Item {
     public StarGateControllerItem() {
@@ -29,23 +29,23 @@ public class StarGateControllerItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        if(!player.isShiftKeyDown() && !level.isClientSide) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        if(!player.isShiftKeyDown() && !level.isClientSide()) {
             Item item = player.getItemInHand(hand).getItem();
             if(item instanceof StarGateControllerItem) {
                 player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
                 player.getItemInHand(hand).set(ModDataStorage.SGC_DESTINATION, new BlockPos(0, 0, 0));
-                return InteractionResultHolder.success(player.getItemInHand(hand));
+                return InteractionResult.SUCCESS;
             }
         }
-        return InteractionResultHolder.fail(player.getMainHandItem());
+        return InteractionResult.FAIL;
     }
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         BlockEntity entity = level.getBlockEntity(context.getClickedPos());
-        if (entity instanceof SignBlockEntity && !level.isClientSide) {
+        if (entity instanceof SignBlockEntity && !level.isClientSide()) {
             String messageX = ((SignBlockEntity) entity).getFrontText().getMessage(0, false).getString();
             String messageY = ((SignBlockEntity) entity).getFrontText().getMessage(1, false).getString();;
             String messageZ = ((SignBlockEntity) entity).getFrontText().getMessage(2, false).getString();
@@ -58,7 +58,7 @@ public class StarGateControllerItem extends Item {
             }
             return InteractionResult.SUCCESS;
         }
-        else if(entity instanceof WarpDriveBlockEntity && !level.isClientSide && context.getItemInHand().get(ModDataStorage.SGC_DESTINATION) != null) {
+        else if(entity instanceof WarpDriveBlockEntity && !level.isClientSide() && context.getItemInHand().get(ModDataStorage.SGC_DESTINATION) != null) {
             ((WarpDriveBlockEntity) entity).setDestination(context.getItemInHand().get(ModDataStorage.SGC_DESTINATION), context.getPlayer());
             return InteractionResult.SUCCESS;
         }
@@ -67,7 +67,7 @@ public class StarGateControllerItem extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> list, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
         if(!flag.hasShiftDown()) {
             int x;
             int y;
@@ -81,12 +81,11 @@ public class StarGateControllerItem extends Item {
                 y = 0;
                 z = 0;
             }
-            list.add(Component.literal("Destination Coordinates: " + x + ", " + y + ", " + z).append(". Hold [SHIFT] for help!"));
+            builder.accept(Component.literal("Destination Coordinates: " + x + ", " + y + ", " + z).append(". Hold [SHIFT] for help!"));
         }
         else {
-            list.add(Component.literal("Click this on a sign with the X, Y, and Z coordinates on separate lines " +
+            builder.accept(Component.literal("Click this on a sign with the X, Y, and Z coordinates on separate lines " +
                     "(in that order) to save the destination, then click on a Warp Drive or Stargate Core to input those coordinates into the block."));
         }
-        super.appendHoverText(stack, context, list, flag);
     }
 }

@@ -9,11 +9,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,6 +23,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ResourceScannerItem extends Item {
 
@@ -31,22 +33,22 @@ public class ResourceScannerItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        if (!level.isClientSide) {
-            player.getCooldowns().addCooldown(this, 60);
+    public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
+        if (!level.isClientSide()) {
+            player.getCooldowns().addCooldown(this.getDefaultInstance(), 60);
             MinecraftServer server = level.getServer();
             ServerLevel moon;
             try {
                 moon = server.getLevel(ModDimensions.MOON);
             } catch (NullPointerException exception) {
-                return InteractionResultHolder.fail(player.getMainHandItem());
+                return InteractionResult.FAIL;
             }
             ItemStack stack = player.getItemInHand(usedHand);
             BlockPos dropPos = player.getOnPos();
             BlockPos pos = stack.get(ModDataStorage.LINKED_ORBITAL_CORE);
             Block block = moon.getBlockState(pos).getBlock();
             boolean correctCore = block instanceof ResourceRadarBlock;
-            if (!moon.isClientSide && !player.level().isClientSide && correctCore) {
+            if (!moon.isClientSide() && !player.level().isClientSide() && correctCore) {
                 AABB bounds = new AABB(dropPos.getX() - 16, -62, dropPos.getZ() - 16, dropPos.getX() + 16, dropPos.getY() + 1, dropPos.getZ() + 16);
                 List<BlockState> B = new ArrayList<BlockState>(level.getBlockStates(bounds).toList());
                 String s;
@@ -55,20 +57,20 @@ public class ResourceScannerItem extends Item {
                     player.sendSystemMessage(Component.literal(s));
                 }
             }
-            return InteractionResultHolder.success(player.getMainHandItem());
+            return InteractionResult.SUCCESS;
         }
-        return InteractionResultHolder.fail(player.getMainHandItem());
+        return InteractionResult.FAIL;
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if(tooltipFlag.hasShiftDown()) {
-            tooltipComponents.add(Component.literal("Link this to a Resource Radar on the Moon to scan for resources."));
+    public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
+        if(flag.hasShiftDown()) {
+            builder.accept(Component.literal("Link this to a Resource Radar on the Moon to scan for resources."));
         }
         else {
-            tooltipComponents.add(Component.literal("Hold [SHIFT] for help!"));
+            builder.accept(Component.literal("Hold [SHIFT] for help!"));
         }
 
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+        super.appendHoverText(stack, context, display, builder, flag);
     }
 }

@@ -4,12 +4,11 @@ import com.astronautica.block.ModBlocks;
 import com.astronautica.item.ModArmorMaterials;
 import com.astronautica.item.ModItems;
 import com.astronautica.world.dimension.ModDimensions;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.equipment.ArmorMaterial;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -53,8 +52,8 @@ public class ModLists {
             Arrays.asList(ModItems.DEBUG_STICK.get(), ModItems.PLATE_STAMP.get(), ModItems.WIRE_STAMP.get(), ModItems.INGOT_STAMP.get()));
 
     //Armor
-    public static final ArrayList<Holder<ArmorMaterial>> ARMOR_MATERIAL_INDEX = new ArrayList<Holder<ArmorMaterial>>(
-            Arrays.asList(ModArmorMaterials.TITANIUM, ModArmorMaterials.COPPER, ModArmorMaterials.TURTLE,
+    public static final ArrayList<ArmorMaterial> ARMOR_MATERIAL_INDEX = new ArrayList<ArmorMaterial>(
+            Arrays.asList(ModArmorMaterials.TITANIUM, ModArmorMaterials.TURTLE,
                     ModArmorMaterials.SPACESUIT, ModArmorMaterials.Z7));
 
     //Space stuff
