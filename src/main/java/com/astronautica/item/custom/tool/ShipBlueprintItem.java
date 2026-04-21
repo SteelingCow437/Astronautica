@@ -1,9 +1,13 @@
 package com.astronautica.item.custom.tool;
 
+import com.astronautica.Astronautica;
 import com.astronautica.block.entity.machine.WarpDriveBlockEntity;
 import com.astronautica.data.ModDataStorage;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +23,8 @@ import java.util.function.Consumer;
 public class ShipBlueprintItem extends Item {
     public ShipBlueprintItem() {
         super(new Properties()
-                .stacksTo(1));
+                .stacksTo(1)
+                .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "ship_blueprint"))));
     }
 
     @Override

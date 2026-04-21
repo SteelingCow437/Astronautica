@@ -132,15 +132,6 @@ public class Astronautica {
             event.accept(ModItems.TITANIUM_LEGGINGS);
             event.accept(ModItems.TITANIUM_BOOTS);
             event.accept(ModItems.HAMMER);
-            event.accept(ModItems.COPPER_HELMET);
-            event.accept(ModItems.COPPER_CHESTPLATE);
-            event.accept(ModItems.COPPER_LEGGINGS);
-            event.accept(ModItems.COPPER_BOOTS);
-            event.accept(ModItems.COPPER_SWORD);
-            event.accept(ModItems.COPPER_PICKAXE);
-            event.accept(ModItems.COPPER_AXE);
-            event.accept(ModItems.COPPER_SHOVEL);
-            event.accept(ModItems.COPPER_HOE);
             event.accept(ModItems.TURTLE_MASTER_HELMET);
             event.accept(ModItems.TURTLE_MASTER_CHESTPLATE);
             event.accept(ModItems.TURTLE_MASTER_LEGGINGS);

@@ -1,9 +1,12 @@
 package com.astronautica.item.custom.armor;
 
+import com.astronautica.Astronautica;
 import com.astronautica.item.ModArmorMaterials;
 import com.astronautica.item.custom.tool.ModArmorItem;
 import com.astronautica.util.ModLists;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
@@ -19,7 +22,8 @@ public class Z7ChestplateItem extends ModArmorItem {
 
     public Z7ChestplateItem() {
         super(ModArmorMaterials.Z7, ArmorType.CHESTPLATE, new Properties().fireResistant()
-                .durability(ArmorType.CHESTPLATE.getDurability(150)));
+                .durability(ArmorType.CHESTPLATE.getDurability(150))
+                .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "z7_chestplate"))));
     }
 
     public ResourceKey<Level> selectedPlanet;

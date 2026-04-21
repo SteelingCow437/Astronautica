@@ -21,7 +21,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.RelativeMovement;
+import net.minecraft.world.entity.Relative;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +30,7 @@ import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterDimensionSpecialEffectsEvent;
+import net.neoforged.neoforge.client.event.RegisterCustomEnvironmentEffectRendererEvent;
 import net.neoforged.neoforge.event.entity.living.LivingBreatheEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -44,8 +44,8 @@ public class ModEvents {
         eventBus.addListener(ModEvents::registerDimEffects);
     }
 
-    private static void registerDimEffects(RegisterDimensionSpecialEffectsEvent event) {
-        event.register(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
+    private static void registerDimEffects(RegisterCustomEnvironmentEffectRendererEvent event) {
+        event.registerSkyboxRenderer(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
     }
 
     @EventBusSubscriber(modid = Astronautica.MOD_ID)
@@ -64,8 +64,8 @@ public class ModEvents {
                         Item item = ((LivingEntity) event.getEntity()).getItemBySlot(EquipmentSlot.CHEST).getItem();
                         if (item == ModItems.SPACESUIT_CHESTPLATE.get() || item == ModItems.Z7_CHESTPLATE.get()) {
                             ServerLevel destinationLevel = getServerLevel(event, item);
-                            ((LivingEntity) event.getEntity()).addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 9, 2));
-                            event.getEntity().teleportTo(destinationLevel, event.getEntity().getX(), 1500, event.getEntity().getZ(), EnumSet.noneOf(RelativeMovement.class), 2.0f, 2.0f);
+                            ((LivingEntity) event.getEntity()).addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 9, 2));
+                            event.getEntity().teleportTo(destinationLevel, event.getEntity().getX(), 1500, event.getEntity().getZ(), EnumSet.noneOf(Relative.class), 2.0f, 2.0f, false);
                         }
                     }
                     if (gravityTimer >= 20) {

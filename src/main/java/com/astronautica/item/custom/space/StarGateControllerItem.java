@@ -1,9 +1,13 @@
 package com.astronautica.item.custom.space;
 
+import com.astronautica.Astronautica;
 import com.astronautica.block.entity.machine.WarpDriveBlockEntity;
 import com.astronautica.data.ModDataStorage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -25,7 +29,8 @@ public class StarGateControllerItem extends Item {
         super(new Properties()
                 .fireResistant()
                 .stacksTo(1)
-                .rarity(Rarity.EPIC));
+                .rarity(Rarity.EPIC)
+                .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "stargate_controller"))));
     }
 
     @Override

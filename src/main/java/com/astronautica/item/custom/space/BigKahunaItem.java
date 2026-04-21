@@ -1,6 +1,10 @@
 package com.astronautica.item.custom.space;
 
+import com.astronautica.Astronautica;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -18,7 +22,8 @@ public class BigKahunaItem extends Item {
         super(new Properties()
                 .fireResistant()
                 .stacksTo(1)
-                .rarity(Rarity.UNCOMMON));
+                .rarity(Rarity.UNCOMMON)
+                .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "big_kahuna"))));
     }
 
     @Override

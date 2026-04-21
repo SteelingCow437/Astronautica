@@ -1,10 +1,14 @@
 package com.astronautica.item.custom.tool;
 
+import com.astronautica.Astronautica;
 import com.astronautica.block.ModBlocks;
 import com.astronautica.item.ModItems;
 import com.astronautica.util.ModLists;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -19,7 +23,8 @@ public class HammerItem extends Item {
     public HammerItem() {
         super(new Properties()
                 .stacksTo(1)
-                .rarity(Rarity.COMMON));
+                .rarity(Rarity.COMMON)
+                .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "hammer"))));
     }
 
     @Override

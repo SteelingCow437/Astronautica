@@ -1,11 +1,15 @@
 package com.astronautica.item.custom.tool;
 
+import com.astronautica.Astronautica;
 import com.astronautica.block.custom.multiblock.ResourceRadarBlock;
 import com.astronautica.data.ModDataStorage;
 import com.astronautica.util.ModLists;
 import com.astronautica.world.dimension.ModDimensions;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -29,7 +33,8 @@ public class ResourceScannerItem extends Item {
 
     public ResourceScannerItem() {
         super(new Properties()
-                .stacksTo(1));
+                .stacksTo(1)
+                .setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "resource_scanner"))));
     }
 
     @Override
