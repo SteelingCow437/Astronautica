@@ -1,28 +1,24 @@
 package com.astronautica.client.renderer;
 
 import com.astronautica.Astronautica;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Axis;
-import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.state.level.LevelRenderState;
+import net.minecraft.client.renderer.state.level.SkyRenderState;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.phys.Vec3;
-import org.joml.Matrix4f;
+import net.neoforged.neoforge.client.CustomSkyboxRenderer;
+import org.joml.Matrix4fc;
 
-public class MoonDimensionSpecialEffects extends DimensionSpecialEffects {
+public class MoonDimensionSpecialEffects implements CustomSkyboxRenderer {
 
     private final Minecraft minecraft = Minecraft.getInstance();
 
-    private static final ResourceLocation SUN_LOCATION = ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID,"textures/environment/moon/sun.png");
-    private static final ResourceLocation EARTH_LOCATION = ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "textures/environment/moon/earth.png");
-    private static final ResourceLocation SKY_LOCATION = ResourceLocation.fromNamespaceAndPath(Astronautica.MOD_ID, "textures/environment/moon/moon_sky.png");
+    private static final Identifier SUN_LOCATION = Identifier.fromNamespaceAndPath(Astronautica.MOD_ID,"textures/environment/moon/sun.png");
+    private static final Identifier EARTH_LOCATION = Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "textures/environment/moon/earth.png");
+    private static final Identifier SKY_LOCATION = Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "textures/environment/moon/moon_sky.png");
 
     public MoonDimensionSpecialEffects() {
-        super(Float.NaN, true, SkyType.END, false, true);
+
     }
 
     public Vec3 getBrightnessDependentFogColor(Vec3 color, float brightness) {
@@ -33,7 +29,13 @@ public class MoonDimensionSpecialEffects extends DimensionSpecialEffects {
         return false;
     }
 
-    public boolean renderSky(ClientLevel level, int ticks, float partialTick, Matrix4f modelViewMatrix, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
+    public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4fc modelViewMatrix, Runnable setupFog) {
+        return true;
+        //TODO: FIX THIS!
+    }
+
+    /*
+    public boolean renderSky(LevelRenderState levelRenderState, SkyRenderState skyRenderState, Matrix4fc modelViewMatrix, Runnable setupFog) {
         PoseStack posestack = new PoseStack();
         posestack.mulPose(modelViewMatrix);
         RenderSystem.enableBlend();
@@ -95,4 +97,5 @@ public class MoonDimensionSpecialEffects extends DimensionSpecialEffects {
         RenderSystem.depthMask(true);
         return true;
     }
+     */
 }

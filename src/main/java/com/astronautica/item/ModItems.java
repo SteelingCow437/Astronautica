@@ -229,8 +229,8 @@ public class ModItems {
                     new Item.Properties().fireResistant().humanoidArmor(ModArmorMaterials.Z7, ArmorType.BOOTS).setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "z7_boots")))));
 
     //planet keys
-    public static final DeferredItem<Item> MOON_KEY = ITEMS.register("moon_key",
-            () -> new PlanetKeyItem(ModDimensions.MOON));
+    public static final DeferredItem<Item> MOON_KEY = ITEMS.registerItem("moon_key",
+            (p) -> new PlanetKeyItem(ModDimensions.MOON, new Item.Properties().setId(ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_key")))));
 
     //Stargate controller
     public static final DeferredItem<Item> STARGATE_CONTROLLER = ITEMS.register("stargate_controller",
