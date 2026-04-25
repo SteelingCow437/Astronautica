@@ -3,6 +3,7 @@ package com.astronautica.block.custom.multiblock.slave;
 import com.astronautica.block.ModBlocks;
 import com.astronautica.block.custom.multiblock.OrbitalFlameCoreBlock;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -75,12 +76,15 @@ public class OrbitalFlameSlaveBlock extends TransparentBlock {
     }
 
     @Override
-    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @org.jspecify.annotations.Nullable Orientation orientation, boolean movedByPiston) {
-        if(block == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
-            level.setBlockAndUpdate(pos, level.getBlockState(pos));
-        }
-        if(block == Blocks.AIR) {
-            level.scheduleTick(pos, this, 1);
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        for(Direction d : Direction.values()) {
+            Block b = level.getBlockState(pos.relative(d)).getBlock();
+            if(b == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
+                level.setBlockAndUpdate(pos.relative(d), Blocks.AIR.defaultBlockState());
+            }
+            if(b == ModBlocks.ORBITAL_FLAME_CORE.get()) {
+                level.scheduleTick(pos.relative(d), b, 1);
+            }
         }
     }
 

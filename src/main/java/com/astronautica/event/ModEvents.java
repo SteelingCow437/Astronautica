@@ -41,10 +41,10 @@ import java.util.EnumSet;
 public class ModEvents {
 
     public static void initModBusEvents(IEventBus eventBus) {
-        eventBus.addListener(ModEvents::registerDimEffects);
+        eventBus.addListener(ModEvents::registerDimensionEffects);
     }
 
-    private static void registerDimEffects(RegisterCustomEnvironmentEffectRendererEvent event) {
+    private static void registerDimensionEffects(RegisterCustomEnvironmentEffectRendererEvent event) {
         event.registerSkyboxRenderer(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
     }
 

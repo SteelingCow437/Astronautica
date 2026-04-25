@@ -42,7 +42,7 @@ public class OrbitalFlameCoreBlock extends Block {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getNearestLookingDirection());
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 
     @Override
@@ -75,24 +75,39 @@ public class OrbitalFlameCoreBlock extends Block {
 
     @Override
     protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, @org.jspecify.annotations.Nullable Orientation orientation, boolean movedByPiston) {
-        if(block == Blocks.AIR) {
+        if(level.getBlockState(pos).getBlock() == Blocks.AIR) {
             level.scheduleTick(pos, this, 1);
         }
-        if(block == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
+        if(level.getBlockState(pos).getBlock() == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
             if(!level.getBlockState(pos).getValue(HAS_MASTER)) {
-                sync(level, pos, state);
+                sync(level, pos, state, true);
             }
         }
     }
 
-    private void sync(Level level, BlockPos pos, BlockState state) {
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        for(Direction d : Direction.values()) {
+            Block b = level.getBlockState(pos.relative(d)).getBlock();
+            if(b == ModBlocks.ORBITAL_FLAME_SLAVE.get()) {
+                level.setBlockAndUpdate(pos.relative(d), Blocks.AIR.defaultBlockState());
+            }
+            if(b == ModBlocks.ORBITAL_FLAME_CORE.get()) {
+                level.scheduleTick(pos.relative(d), b, 1);
+            }
+        }
+    }
+
+    private void sync(Level level, BlockPos pos, BlockState state, boolean setSlaves) {
         worldPosition = pos;
-        setSlaves(level, pos, state);
+        if(setSlaves) {
+            setSlaves(level, pos, state);
+        }
     }
 
     @Override
     protected void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        sync(level, pos, state);
+        sync(level, pos, state, false);
         level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
         drop(level);
     }
