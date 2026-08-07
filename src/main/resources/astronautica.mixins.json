@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.astronautica.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_25",
   "refmap": "astronautica.refmap.json",
   "mixins": [
   ],

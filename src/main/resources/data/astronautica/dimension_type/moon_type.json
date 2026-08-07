@@ -6,7 +6,7 @@
   "ambient_light": 1,
   "has_fixed_time": false,
   "logical_height": 384,
-  "skybox": "none",
+  "default_clock": "minecraft:overworld",
   "cardinal_light": "default",
   "infiniburn": "#minecraft:infiniburn_overworld",
   "min_y": -64,
