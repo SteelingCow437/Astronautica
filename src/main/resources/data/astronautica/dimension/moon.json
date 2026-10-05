@@ -6,6 +6,7 @@
       "type": "minecraft:fixed",
       "biome": "astronautica:moon_biome"
     },
-    "settings": "astronautica:moon_noise"
+    "settings": "astronautica:moon_noise",
+    "skybox": "astronautica:sky_aesthetics/moon"
   }
 }

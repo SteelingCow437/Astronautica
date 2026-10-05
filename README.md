@@ -1,11 +1,11 @@
 Astronautica
 
-A mod about space and tech, for 1.21.1 and beyond, made for the Minecraft server that
+A mod about space and tech, for 26.1.2 and beyond, made for the Minecraft server that
 my friends and I play on.
 
 If you see something that either looks gross, works poorly, or just needs improvement, make a pull request
 or open up an issue, so I can know what's going on. Things will be broken/janky, I'm an amateur programmer
-and modder, so bear with me here.
+and modder, so bare with me here.
 
 IMPORTANT: On multiplayer worlds, the gamerule "disableElytraMovementCheck" MUST be set to "true"
 
@@ -13,7 +13,8 @@ FAQ:
 
 Versioning structure: NeoforgeVersion.MajorModVersion.MinorModVersion + Letter (A, B, C, etc. Used for playtesting.)
 
-"What versions?" 1.21.1 Neoforged, as of now. I'll port it to the latest version eventually.
+"What versions?" 26.1.2 Neoforged, as of now. I'll port it to the latest version eventually.
+I'm a busy guy, so things won't be quick. When I finish paramedic school, I'll have more time to work on this.
 
 "Fabric? Quilt? Regular Forge?" No. By all means, port them if you know how, but don't bother asking ME to do it.
 
@@ -33,5 +34,7 @@ If it's not in there, chances are you either have to find it or it's made at a s
 crafting station. Recipes for everything will be on the wiki in the GitHub page.
 
 "How do I download it?" Download the JAR file from the "Releases" tab and put it in your
-mods folder. There are no dependencies, but I recommend some performance mods, as Mojang doesn't know how to code, and
-neither do I.
+mods folder.
+
+"Dependencies?" Yes: Sky Aesthetics. I also recommend performance mods, as nobody involved in the making
+of this game or mod knows how to code.

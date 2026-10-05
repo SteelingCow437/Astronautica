@@ -32,7 +32,7 @@ public class Astronautica {
     public Astronautica(IEventBus eventBus, ModContainer modContainer) {
         // Register the setup method for modloading
         eventBus.addListener(this::setup);
-        ModEvents.initModBusEvents(eventBus);
+        //ModEvents.initModBusEvents(eventBus);
         // Register the eventbus for all of the items and such
 
         ModItems.register(eventBus);

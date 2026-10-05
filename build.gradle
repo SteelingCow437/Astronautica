@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.143'
 }
 
 version = mod_version
@@ -9,6 +9,10 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven {
+        name "exodusRepositoryReleases"
+        url "https://maven.exodusstudio.org/releases"
+    }
 }
 
 base {
@@ -95,7 +99,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 
 dependencies {
-    //implementation "com.github.tathandev:sky_aesthetics-neoforge-:${sky_version}"
+    implementation "fr.tathan.sky-aesthetics:sky-aesthetics-neoforge-${minecraft_version}:${sky_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -111,7 +115,9 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
                              mod_license            : mod_license,
                              mod_version            : mod_version,
                              mod_authors            : mod_authors,
-                             mod_description        : mod_description]
+                             mod_description        : mod_description,
+                             sky_version_range      : sky_version_range,
+                             sky_version            : sky_version]
     inputs.properties replaceProperties
     expand replaceProperties
     from "src/main/templates"
@@ -147,4 +153,4 @@ idea {
         downloadJavadoc = true
     }
 }
- */
+*/

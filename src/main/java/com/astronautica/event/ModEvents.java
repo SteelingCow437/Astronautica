@@ -45,7 +45,7 @@ public class ModEvents {
     }
 
     private static void registerDimensionEffects(RegisterCustomEnvironmentEffectRendererEvent event) {
-        event.registerSkyboxRenderer(Identifier.fromNamespaceAndPath(Astronautica.MOD_ID, "moon_type"), new MoonDimensionSpecialEffects());
+
     }
 
     @EventBusSubscriber(modid = Astronautica.MOD_ID)

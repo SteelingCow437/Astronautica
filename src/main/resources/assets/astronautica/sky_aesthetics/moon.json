@@ -1,0 +1,47 @@
+{
+  "world": "astronautica:moon",
+  "id": "astronautica:moon",
+  "cloud_settings": {
+    "cloud": false,
+    "cloud_height": 192
+  },
+  "rain": false,
+  "custom_vanilla_objects": {
+    "sun": true,
+    "sun_texture": "astronautica:textures/environment/moon/sun.png",
+    "sun_height": 450,
+    "sun_size": 200,
+    "moon": true,
+    "moon_phase": false,
+    "moon_texture": "astronautica:textures/environment/moon/earth.png",
+    "moon_height": 40,
+    "moon_size": 100
+  },
+  "stars": {
+    "vanilla": true,
+    "moving_stars": false,
+    "count": 200,
+    "all_days_visible": true,
+    "scale": 0.05,
+    "color": [
+      255,
+      255,
+      255
+    ]
+  },
+  "sunrise_alpha_modifier": 1,
+  "sky_type": "OVERWORLD",
+  "sky_color": {
+    "custom_color": true,
+    "color": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sky_objects": [],
+  "constellations": [],
+  "condition": {
+    "condition": false
+  }
+}

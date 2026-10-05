@@ -1,4 +1,5 @@
 {
+  "timelines": "#minecraft:in_overworld",
   "has_skylight": true,
   "has_ceiling": false,
   "has_ender_dragon_fight": false,
